@@ -1,9 +1,16 @@
 import React from 'react'
-import { makeStyles, Typography, Button } from '@material-ui/core'
+import {
+    makeStyles,
+    Typography,
+    Button,
+    TextField,
+
+} from '@material-ui/core'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import SearchIcon from '@material-ui/icons/Search'
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline'
 import ModeCommentOutlinedIcon from '@material-ui/icons/ModeCommentOutlined'
+import DialogAuthForm from '../Authorization/DialogAuthForm'
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -77,8 +84,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const SignIn = () => {
+const HomePage = () => {
     const classes = useStyles()
+
+    // SignIn
+    const [openLogin, setOpenLogin] = React.useState(false)
+    const handleOpenLogin = () => {
+        setOpenLogin(true)
+    }
+    const handleCloseLogin = () => {
+        setOpenLogin(false)
+    }
+
+    // SignUp
+    const [openRegister, setOpenRegister] = React.useState(false)
+    const handleOpenRegister = () => {
+        setOpenRegister(true)
+    }
+    const handleCloseRegister = () => {
+        setOpenRegister(false)
+    }
+
 
     return (
         <div className={classes.wrapper}>
@@ -115,7 +141,6 @@ const SignIn = () => {
                     <Typography>
                         <b>Присоедийтесь к Твиттеру прямо сейчас!</b>
                     </Typography>
-                    <br />
                     <Button
                         style={{
                             marginBottom: 20,
@@ -123,16 +148,86 @@ const SignIn = () => {
                         variant="contained"
                         fullWidth
                         color="primary"
+                        onClick={handleOpenRegister}
                     >
                         Зарегистрироваться
                     </Button>
-                    <Button variant="outlined" fullWidth color="primary">
+                    <Button onClick={handleOpenLogin} variant="outlined" fullWidth color="primary">
                         Войти
                     </Button>
+
+                    {/*Login*/}
+                    <DialogAuthForm
+                        visible={openLogin}
+                        handleClose={handleCloseLogin}
+                        title="Авторизация"
+                        buttonText="Войти"
+                    >
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="email"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            label="Адрес электронной почты"
+                            type="email"
+                            fullWidth
+                        />
+                        <TextField
+                            margin="dense"
+                            id="password"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            label="Пароль"
+                            type="password"
+                            fullWidth
+                        />
+                    </DialogAuthForm>
+
+                    {/*Register*/}
+                    <DialogAuthForm
+                        visible={openRegister}
+                        handleClose={handleCloseRegister}
+                        title="Регистрация"
+                        buttonText="Зарегистрироваться"
+                    >
+                        <TextField
+                            margin="dense"
+                            id="name"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            label="Имя"
+                            fullWidth
+                        />
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="email"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            label="Адрес электронной почты"
+                            type="email"
+                            fullWidth
+                        />
+                        <TextField
+                            margin="dense"
+                            id="password"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            label="Пароль"
+                            type="password"
+                            fullWidth
+                        />
+                    </DialogAuthForm>
                 </div>
             </section>
         </div>
     )
 }
 
-export default SignIn
+export default HomePage

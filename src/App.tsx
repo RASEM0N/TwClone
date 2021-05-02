@@ -1,10 +1,10 @@
 import React from 'react'
-import SignIn from './components/Auth/SignIn'
+import HomePage from './components/Auth/HomePage'
 
 function App() {
     return (
         <div className="App">
-            <SignIn />
+            <HomePage />
         </div>
     )
 }
