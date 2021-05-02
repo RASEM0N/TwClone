@@ -1,12 +1,12 @@
-import React from 'react';
-
+import React from 'react'
+import SignIn from './components/Auth/SignIn'
 
 function App() {
-  return (
-    <div className="App">
-      App
-    </div>
-  );
+    return (
+        <div className="App">
+            <SignIn />
+        </div>
+    )
 }
 
-export default App;
+export default App
