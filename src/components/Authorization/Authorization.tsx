@@ -10,7 +10,7 @@ import TwitterIcon from '@material-ui/icons/Twitter'
 import SearchIcon from '@material-ui/icons/Search'
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline'
 import ModeCommentOutlinedIcon from '@material-ui/icons/ModeCommentOutlined'
-import DialogAuthForm from '../Authorization/DialogAuthForm'
+import DialogAuthForm from './DialogAuthForm'
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const HomePage = () => {
+const Authorization: React.FunctionComponent = () => {
     const classes = useStyles()
 
     // SignIn
@@ -109,23 +109,23 @@ const HomePage = () => {
     return (
         <div className={classes.wrapper}>
             <div className={classes.infoSide}>
-                <TwitterIcon className={classes.infoIconTwitterBcg} color="primary" />
+                <TwitterIcon className={classes.infoIconTwitterBcg} color='primary' />
                 <ul>
                     <li>
-                        <Typography variant="h5">
+                        <Typography variant='h5'>
                             {' '}
                             <SearchIcon className={classes.infoSideIcon} />
                             Читайте о том, что вам интересно
                         </Typography>
                     </li>
                     <li>
-                        <Typography variant="h5">
+                        <Typography variant='h5'>
                             <PeopleOutlineIcon className={classes.infoSideIcon} />
                             Узнайте о, чем говорят в мире{' '}
                         </Typography>
                     </li>
                     <li>
-                        <Typography variant="h5">
+                        <Typography variant='h5'>
                             <ModeCommentOutlinedIcon className={classes.infoSideIcon} />
                             Присоединяйтесь к общению
                         </Typography>
@@ -134,8 +134,8 @@ const HomePage = () => {
             </div>
             <section className={classes.authSide}>
                 <div className={classes.authSideWrapper}>
-                    <TwitterIcon className={classes.authIconTwitter} color="primary" />
-                    <Typography className={classes.authSideTitle} variant="h4">
+                    <TwitterIcon className={classes.authIconTwitter} color='primary' />
+                    <Typography className={classes.authSideTitle} variant='h4'>
                         Узнайте, что происходит в мире сейчас
                     </Typography>
                     <Typography>
@@ -145,14 +145,14 @@ const HomePage = () => {
                         style={{
                             marginBottom: 20,
                         }}
-                        variant="contained"
+                        variant='contained'
                         fullWidth
-                        color="primary"
+                        color='primary'
                         onClick={handleOpenRegister}
                     >
                         Зарегистрироваться
                     </Button>
-                    <Button onClick={handleOpenLogin} variant="outlined" fullWidth color="primary">
+                    <Button onClick={handleOpenLogin} variant='outlined' fullWidth color='primary'>
                         Войти
                     </Button>
 
@@ -160,28 +160,28 @@ const HomePage = () => {
                     <DialogAuthForm
                         visible={openLogin}
                         handleClose={handleCloseLogin}
-                        title="Авторизация"
-                        buttonText="Войти"
+                        title='Авторизация'
+                        buttonText='Войти'
                     >
                         <TextField
                             autoFocus
-                            margin="dense"
-                            id="email"
+                            margin='dense'
+                            id='email'
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            label="Адрес электронной почты"
-                            type="email"
+                            label='Адрес электронной почты'
+                            type='email'
                             fullWidth
                         />
                         <TextField
-                            margin="dense"
-                            id="password"
+                            margin='dense'
+                            id='password'
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            label="Пароль"
-                            type="password"
+                            label='Пароль'
+                            type='password'
                             fullWidth
                         />
                     </DialogAuthForm>
@@ -190,37 +190,37 @@ const HomePage = () => {
                     <DialogAuthForm
                         visible={openRegister}
                         handleClose={handleCloseRegister}
-                        title="Регистрация"
-                        buttonText="Зарегистрироваться"
+                        title='Регистрация'
+                        buttonText='Зарегистрироваться'
                     >
                         <TextField
-                            margin="dense"
-                            id="name"
+                            margin='dense'
+                            id='name'
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            label="Имя"
+                            label='Имя'
                             fullWidth
                         />
                         <TextField
                             autoFocus
-                            margin="dense"
-                            id="email"
+                            margin='dense'
+                            id='email'
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            label="Адрес электронной почты"
-                            type="email"
+                            label='Адрес электронной почты'
+                            type='email'
                             fullWidth
                         />
                         <TextField
-                            margin="dense"
-                            id="password"
+                            margin='dense'
+                            id='password'
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            label="Пароль"
-                            type="password"
+                            label='Пароль'
+                            type='password'
                             fullWidth
                         />
                     </DialogAuthForm>
@@ -230,4 +230,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default Authorization
