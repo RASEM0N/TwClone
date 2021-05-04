@@ -8,7 +8,7 @@ import {
     Typography,
 } from '@material-ui/core'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import InfoMenu from './InfoMenu'
 import SideMenu from './SideMenu'
 import TweetItem from './TweetItem'
@@ -19,6 +19,15 @@ import ListItem from '@material-ui/core/ListItem'
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import EmojiEmotionsOutlinedIcon from '@material-ui/icons/EmojiEmotionsOutlined'
 import DataUsageOutlinedIcon from '@material-ui/icons/DataUsageOutlined'
+import { useDispatch, useSelector } from 'react-redux'
+import { DispatchType, StateType } from '../../store/store'
+import {
+    fetchTweetsAction,
+    getLoadingStateTweets,
+    getTweetsItems,
+    LoadingStateEnum,
+    TweetType,
+} from '../../store/bundles/tweets'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -103,16 +112,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
     const classes = useStyles()
-
+    const dispatch = useDispatch<DispatchType>()
+    const tweets = useSelector(getTweetsItems)
+    const loading = useSelector<StateType, LoadingStateEnum>(getLoadingStateTweets)
+    useEffect(() => {
+        dispatch(fetchTweetsAction())
+    }, [dispatch])
     return (
         <section>
             <Container maxWidth={'lg'} className={classes.container}>
                 <Grid container spacing={2}>
+                    {/*Side menu*/}
                     <Grid item xs={3} className={classes.sideMenu}>
                         <SideMenu classes={classes} />
                     </Grid>
+
+                    {/*Content Menu*/}
                     <Grid item xs={6}>
                         <Paper className={classes.contentMenu} variant={'outlined'}>
+                            {/*Form Menu*/}
                             <Paper
                                 className={classes.contentHeader}
                                 variant={'outlined'}
@@ -134,10 +152,13 @@ const Home = () => {
                                             alignSelf: 'end',
                                         }}
                                     >
-                                        <Avatar style={{
-                                            width: 50,
-                                            height: 50
-                                        }} src='https://data.whicdn.com/images/300076584/original.jpg'/>
+                                        <Avatar
+                                            style={{
+                                                width: 50,
+                                                height: 50,
+                                            }}
+                                            src="https://data.whicdn.com/images/300076584/original.jpg"
+                                        />
                                     </ListItemAvatar>
                                     <div
                                         style={{
@@ -157,8 +178,7 @@ const Home = () => {
                                             style={{
                                                 display: 'flex',
                                                 justifyContent: 'space-between',
-                                                marginTop: 15
-
+                                                marginTop: 15,
                                             }}
                                         >
                                             <div>
@@ -192,19 +212,21 @@ const Home = () => {
                                 </ListItem>
                             </Paper>
 
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
-                            <TweetItem classes={classes} />
+                            {/*Tweets*/}
+                            {loading === LoadingStateEnum.LOADED
+                                ? tweets.map((tweet) => (
+                                      <TweetItem
+                                          classes={classes}
+                                          key={tweet._id}
+                                          text={tweet.text}
+                                          user={tweet.user}
+                                      />
+                                  ))
+                                : 'loading...'}
                         </Paper>
                     </Grid>
+
+                    {/*Info Menu*/}
                     <Grid
                         item
                         xs={3}
