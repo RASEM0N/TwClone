@@ -5,14 +5,16 @@ import App from './App'
 import { MuiThemeProvider } from '@material-ui/core'
 import theme from './theme'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from './store/store'
 
 render(
-    <React.StrictMode>
-        <MuiThemeProvider theme={theme}>
-            <BrowserRouter>
+    <MuiThemeProvider theme={theme}>
+        <BrowserRouter>
+            <Provider store={store}>
                 <App />
-            </BrowserRouter>
-        </MuiThemeProvider>
-    </React.StrictMode>,
-    document.getElementById('root'),
+            </Provider>
+        </BrowserRouter>
+    </MuiThemeProvider>,
+    document.getElementById('root')
 )
