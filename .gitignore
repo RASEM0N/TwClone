@@ -21,6 +21,7 @@
 .idea
 package-lock.json
 yarn.lock
+todo.txt
 
 
 npm-debug.log*

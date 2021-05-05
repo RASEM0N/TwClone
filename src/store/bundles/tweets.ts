@@ -115,7 +115,7 @@ export const TweetsSaga = function* () {
 //#endregion
 
 //#region SELECTORS
-export const getTweets: Selector<StateType, InitialStateType> = (state) => state.tweet
+export const getTweets: Selector<StateType, InitialStateType> = (state) => state.tweets
 export const getTweetsItems: Selector<StateType, TweetType[]> = (state) => getTweets(state).items
 export const getLoadingStateTweets: Selector<StateType, LoadingStateEnum> = (state) =>
     getTweets(state).loading
