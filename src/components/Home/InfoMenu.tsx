@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import InputBase from '@material-ui/core/InputBase'
@@ -10,8 +10,14 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ImageIcon from '@material-ui/icons/Image'
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonAddIcon from '@material-ui/icons/PersonAdd'
 import { Typography } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux'
+import { DispatchType } from '../../store/store'
+import { fetchTagsAction, getLoadingStateTags, getTagsItems } from '../../store/bundles/tags'
+import { LoadingStateEnum } from '../../store/bundles/tweets'
+import { Link, Route } from 'react-router-dom'
+import TagItem from './TagItem'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,7 +44,13 @@ const useStyles = makeStyles((theme) => ({
 
 const InfoMenu = () => {
     const classes = useStyles()
+    const dispatch = useDispatch<DispatchType>()
+    const tags = useSelector(getTagsItems)
+    const loading = useSelector(getLoadingStateTags)
 
+    useEffect(() => {
+        dispatch(fetchTagsAction())
+    }, [dispatch])
     return (
         <>
             {/*search*/}
@@ -55,15 +67,9 @@ const InfoMenu = () => {
                     <ListItem>
                         <Typography variant={'h6'}>Актуальные темы</Typography>
                     </ListItem>
-                    <ListItem>
-                        <ListItemText primary="Санкт-Петербург" secondary="Твиттов: 3331" />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary="#коронавирус" secondary="Твиттов: 3331" />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary="Беларусь" secondary="Твиттов: 3331" />
-                    </ListItem>
+                    {loading === LoadingStateEnum.LOADED
+                        ? tags.map((tag) => <TagItem {...tag} />)
+                        : 'Loading ...'}
                 </List>
             </Paper>
 

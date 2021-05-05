@@ -1,14 +1,6 @@
 import React from 'react'
-import {
-    IconButton,
-    Button,
-    Typography,
-    Hidden,
-    TextField,
-    List,
-    ListItemIcon,
-    Paper,
-} from '@material-ui/core'
+import { Link } from 'react-router-dom'
+import { IconButton, Button, Typography, Hidden, List, Paper } from '@material-ui/core'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import SearchIcon from '@material-ui/icons/Search'
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined'
@@ -20,7 +12,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import PersonAddIcon from '@material-ui/icons/PersonAdd'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import Collapse from '@material-ui/core/Collapse'
@@ -48,7 +39,11 @@ const SideMenu: React.FC<PropsType> = ({ classes }) => {
                 <ul className={classes.sideMenuList}>
                     <li>
                         <IconButton color="primary">
-                            <TwitterIcon className={classes.logo} />
+                            <Link to="/home" style={{
+                                color: 'inherit'
+                            }}>
+                                <TwitterIcon className={classes.logo} />
+                            </Link>
                         </IconButton>
                     </li>
                     <li>
@@ -159,4 +154,4 @@ const SideMenu: React.FC<PropsType> = ({ classes }) => {
     )
 }
 
-export default SideMenu
+export default SideMenu;

@@ -2,6 +2,7 @@ import {
     Button,
     Container,
     Grid,
+    Icon,
     makeStyles,
     Paper,
     TextField,
@@ -26,8 +27,10 @@ import {
     getLoadingStateTweets,
     getTweetsItems,
     LoadingStateEnum,
-    TweetType,
 } from '../../store/bundles/tweets'
+import { Route, RouteComponentProps, useHistory } from 'react-router-dom'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import Tweet from './Tweet'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -112,6 +115,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
     const classes = useStyles()
+    const history = useHistory()
     const dispatch = useDispatch<DispatchType>()
     const tweets = useSelector(getTweetsItems)
     const loading = useSelector<StateType, LoadingStateEnum>(getLoadingStateTweets)
@@ -141,88 +145,104 @@ const Home = () => {
                                     borderBottomWidth: 14,
                                 }}
                             >
-                                <Typography variant="h6">Главная</Typography>
-                                <ListItem
-                                    style={{
-                                        marginTop: 15,
-                                    }}
-                                >
-                                    <ListItemAvatar
-                                        style={{
-                                            alignSelf: 'end',
+                                <Route path={'/home/:any'}>
+                                    <IconButton
+                                        onClick={() => {
+                                            history.goBack()
                                         }}
                                     >
-                                        <Avatar
+                                        <ArrowBackIcon color="primary" />
+                                    </IconButton>
+                                </Route>
+                                <Route path="/home/tweet">
+                                    <Typography variant="h6">Твитнуть</Typography>
+                                </Route>
+                                <Route path={['/home', '/home/search']} exact>
+                                    <Typography variant="h6">Твиты</Typography>
+                                </Route>
+                                <Route path={['/home', '/home/search']} exact>
+                                    <ListItem
+                                        style={{
+                                            marginTop: 15,
+                                        }}
+                                    >
+                                        <ListItemAvatar
                                             style={{
-                                                width: 50,
-                                                height: 50,
+                                                alignSelf: 'end',
                                             }}
-                                            src="https://data.whicdn.com/images/300076584/original.jpg"
-                                        />
-                                    </ListItemAvatar>
-                                    <div
-                                        style={{
-                                            width: '100%',
-                                        }}
-                                    >
-                                        <TextField
-                                            id="outlined-multiline-static"
-                                            multiline
-                                            placeholder="Что происходит?"
-                                            variant="outlined"
+                                        >
+                                            <Avatar
+                                                style={{
+                                                    width: 50,
+                                                    height: 50,
+                                                }}
+                                                src="https://data.whicdn.com/images/300076584/original.jpg"
+                                            />
+                                        </ListItemAvatar>
+                                        <div
                                             style={{
                                                 width: '100%',
                                             }}
-                                        />
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                marginTop: 15,
-                                            }}
                                         >
-                                            <div>
-                                                <IconButton>
-                                                    <ImageOutlinedIcon color="primary" />
-                                                </IconButton>
-                                                <IconButton>
-                                                    <EmojiEmotionsOutlinedIcon color="primary" />
-                                                </IconButton>
-                                            </div>
-
+                                            <TextField
+                                                id="outlined-multiline-static"
+                                                multiline
+                                                placeholder="Что происходит?"
+                                                variant="outlined"
+                                                style={{
+                                                    width: '100%',
+                                                }}
+                                            />
                                             <div
                                                 style={{
                                                     display: 'flex',
-                                                    alignItems: 'center',
+                                                    justifyContent: 'space-between',
+                                                    marginTop: 15,
                                                 }}
                                             >
-                                                <div>269</div>
-                                                <IconButton>
-                                                    <DataUsageOutlinedIcon color="primary" />
-                                                </IconButton>
-                                                <Button variant={'contained'} color="primary">
-                                                    Твитнуть
-                                                </Button>
+                                                <div>
+                                                    <IconButton>
+                                                        <ImageOutlinedIcon color="primary" />
+                                                    </IconButton>
+                                                    <IconButton>
+                                                        <EmojiEmotionsOutlinedIcon color="primary" />
+                                                    </IconButton>
+                                                </div>
+
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                    }}
+                                                >
+                                                    <div>269</div>
+                                                    <IconButton>
+                                                        <DataUsageOutlinedIcon color="primary" />
+                                                    </IconButton>
+                                                    <Button variant={'contained'} color="primary">
+                                                        Твитнуть
+                                                    </Button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    {/*<IconButton>*/}
-                                    {/*    <PersonAddIcon />*/}
-                                    {/*</IconButton>*/}
-                                </ListItem>
+                                        {/*<IconButton>*/}
+                                        {/*    <PersonAddIcon />*/}
+                                        {/*</IconButton>*/}
+                                    </ListItem>
+                                </Route>
                             </Paper>
 
                             {/*Tweets*/}
-                            {loading === LoadingStateEnum.LOADED
-                                ? tweets.map((tweet) => (
-                                      <TweetItem
-                                          classes={classes}
-                                          key={tweet._id}
-                                          text={tweet.text}
-                                          user={tweet.user}
-                                      />
-                                  ))
-                                : 'loading...'}
+                            <Route path="/home" exact>
+                                {loading === LoadingStateEnum.LOADED
+                                    ? tweets.map((tweet) => (
+                                          <TweetItem key={tweet._id} classes={classes} {...tweet} />
+                                      ))
+                                    : 'loading...'}
+                            </Route>
+                            <Route path="/home/tweet/:id" exact>
+                                <Tweet classes={classes}/>
+                            </Route>
                         </Paper>
                     </Grid>
 
