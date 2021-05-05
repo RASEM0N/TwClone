@@ -1,9 +1,9 @@
 import produce, { Draft } from 'immer'
-import { takeEvery, call, put } from 'redux-saga/effects'
+import { takeEvery, call, put, all, delay } from "redux-saga/effects";
 import { Action } from 'redux'
-import TweetAPI from '../../services/api/tweets'
+import { apiTweets } from '../../services/api/api'
 import { StateType } from '../store'
-import {  Selector } from 'reselect'
+import { Selector } from 'reselect'
 
 //#region TYPE
 export type TweetType = {
@@ -92,18 +92,24 @@ export const setTweetsLoadingState = (state: LoadingStateEnum): ISetTweetsLoadin
 //#endregion
 
 //#region SAGAS
-function* fetchTweetsRequest() {
+const fetchTweetsRequest = function* () {
     yield put(setTweetsLoadingState(LoadingStateEnum.LOADING))
+    yield delay(2000)
     try {
-        const data: TweetType[] = yield call(TweetAPI.getTweets)
+        const data: TweetType[] = yield call(apiTweets.getTweets)
         yield put(setTweetsAction(data))
     } catch (error) {
+        // console.log(error.message);
         yield put(setTweetsLoadingState(LoadingStateEnum.ERROR))
     }
 }
 
-export function* watchFetchTweets() {
+const watchFetchTweets = function* () {
     yield takeEvery(TweetsTypeEnum.FETCH_TWEETS, fetchTweetsRequest)
+}
+
+export const TweetsSaga = function* () {
+    yield all([watchFetchTweets()])
 }
 
 //#endregion
