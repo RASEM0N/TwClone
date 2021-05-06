@@ -11,15 +11,16 @@ class APITweets {
         const response = await axios.get(`/tweets?_id=${id}`)
         return response.data
     }
+
+    async addTweet(tweet:TweetType): Promise<TweetType>{
+        const response = await axios.post(`/tweets`, tweet)
+        return response.data
+    }
+
 }
 class APITags {
     async getTags(): Promise<TagType[]> {
         const response = await axios.get(`/tags`)
-        return response.data
-    }
-
-    async getTagById(id: string): Promise<TagType>{
-        const response = await axios.get(`/tags/${id}`)
         return response.data
     }
 }

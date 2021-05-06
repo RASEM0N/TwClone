@@ -1,7 +1,7 @@
 import produce, { Draft } from 'immer'
 import { Action } from 'redux'
 import { LoadingStateEnum, TweetType } from './tweets'
-import { all, call, put, take, takeEvery } from 'redux-saga/effects'
+import { all, call, delay, put, takeLatest } from 'redux-saga/effects'
 import { apiTweets } from '../../services/api/api'
 import { Selector } from 'reselect'
 import { StateType } from '../store'
@@ -51,51 +51,46 @@ interface ISetTweetAction extends Action<TweetActionEnum> {
     payload: TweetType
 }
 
-export const setTweetAction = (tweet: TweetType): ISetTweetAction => ({
-    type: TweetActionEnum.SET_TWEET,
-    payload: tweet,
-})
-
 interface IFetchTweetAction extends Action<TweetActionEnum> {
     type: TweetActionEnum.FETCH_TWEET
     payload: string
 }
-
-export const fetchTweetAction = (id: string): IFetchTweetAction => ({
-    type: TweetActionEnum.FETCH_TWEET,
-    payload: id,
-})
 
 interface ISetTweetLoadingState extends Action<TweetActionEnum> {
     type: TweetActionEnum.SET_LOADING_STATE
     payload: LoadingStateEnum
 }
 
-export const setTweetLoadingState = (state: LoadingStateEnum): ISetTweetLoadingState => ({
+const setTweetAction = (tweet: TweetType): ISetTweetAction => ({
+    type: TweetActionEnum.SET_TWEET,
+    payload: tweet,
+})
+
+export const fetchTweetAction = (id: string): IFetchTweetAction => ({
+    type: TweetActionEnum.FETCH_TWEET,
+    payload: id,
+})
+const setTweetLoadingState = (state: LoadingStateEnum): ISetTweetLoadingState => ({
     type: TweetActionEnum.SET_LOADING_STATE,
     payload: state,
 })
+
 //#endregion
 
 //#region SAGAS
 
-const fetchTweetById = function* (id: string) {
+const fetchTweetById = function* ({ payload }: IFetchTweetAction) {
     yield put(setTweetLoadingState(LoadingStateEnum.LOADING))
+    yield delay(500)
     try {
-        const data: TweetType[] = yield call(apiTweets.getTweetById, id)
+        const data: TweetType[] = yield call(apiTweets.getTweetById, payload)
         yield put(setTweetAction(data[0]))
     } catch (e) {
         yield put(setTweetLoadingState(LoadingStateEnum.ERROR))
     }
 }
-
 const watchFetchTagById = function* () {
-    while (true) {
-        const { payload } : {payload: string} = yield take(TweetActionEnum.FETCH_TWEET)
-
-        yield call(fetchTweetById, payload)
-    }
-    // yield takeEvery(TweetActionEnum.FETCH_TWEET, fetchTweetById)
+    yield takeLatest(TweetActionEnum.FETCH_TWEET, fetchTweetById)
 }
 
 export const TweetSaga = function* () {

@@ -1,7 +1,7 @@
-import { LoadingStateEnum} from './tweets'
+import { LoadingStateEnum } from './tweets'
 import { Action } from 'redux'
 import produce, { Draft } from 'immer'
-import { all, call, put, takeEvery , delay} from 'redux-saga/effects'
+import { all, call, put, takeEvery, delay } from 'redux-saga/effects'
 import { apiTags } from '../../services/api/api'
 import { Selector } from 'reselect'
 import { StateType } from '../store'
@@ -56,25 +56,25 @@ interface ISetTagsAction extends Action<TagsActionEnum> {
     payload: TagType[]
 }
 
-export const setTagsAction = (tags: TagType[]): ISetTagsAction => ({
-    type: TagsActionEnum.SET_TAGS,
-    payload: tags,
-})
-
-interface IFetchTagsAction extends Action<TagsActionEnum> {
-    type: TagsActionEnum.FETCH_TAGS
-}
-
-export const fetchTagsAction = (): IFetchTagsAction => ({
-    type: TagsActionEnum.FETCH_TAGS,
-})
-
 interface ISetTagsLoadingStateAction extends Action<TagsActionEnum> {
     type: TagsActionEnum.SET_LOADING_STATE
     payload: LoadingStateEnum
 }
 
-export const setTagsLoadingStateAction = (state: LoadingStateEnum): ISetTagsLoadingStateAction => ({
+interface IFetchTagsAction extends Action<TagsActionEnum> {
+    type: TagsActionEnum.FETCH_TAGS
+}
+
+const setTagsAction = (tags: TagType[]): ISetTagsAction => ({
+    type: TagsActionEnum.SET_TAGS,
+    payload: tags,
+})
+
+export const fetchTagsAction = (): IFetchTagsAction => ({
+    type: TagsActionEnum.FETCH_TAGS,
+})
+
+const setTagsLoadingStateAction = (state: LoadingStateEnum): ISetTagsLoadingStateAction => ({
     type: TagsActionEnum.SET_LOADING_STATE,
     payload: state,
 })

@@ -1,11 +1,8 @@
 import {
-    Button,
     Container,
     Grid,
-    Icon,
     makeStyles,
     Paper,
-    TextField,
     Typography,
 } from '@material-ui/core'
 
@@ -13,13 +10,7 @@ import React, { useEffect } from 'react'
 import InfoMenu from './InfoMenu'
 import SideMenu from './SideMenu'
 import TweetItem from './TweetItem'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
-import ListItem from '@material-ui/core/ListItem'
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
-import EmojiEmotionsOutlinedIcon from '@material-ui/icons/EmojiEmotionsOutlined'
-import DataUsageOutlinedIcon from '@material-ui/icons/DataUsageOutlined'
 import { useDispatch, useSelector } from 'react-redux'
 import { DispatchType, StateType } from '../../store/store'
 import {
@@ -28,9 +19,10 @@ import {
     getTweetsItems,
     LoadingStateEnum,
 } from '../../store/bundles/tweets'
-import { Route, RouteComponentProps, useHistory } from 'react-router-dom'
+import { Route, useHistory } from 'react-router-dom'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Tweet from './Tweet'
+import TweetForm from "./TweetForm";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -101,17 +93,6 @@ const useStyles = makeStyles((theme) => ({
     //#endregion
 }))
 
-// кастомный элемент
-// const SearchInput = withStyles(() =>
-//     createStyles({
-//         input: {
-//             borderRadius: 30,
-//             backgroundColor: '#E6ECF0',
-//             height: 45,
-//             padding: 0,
-//         },
-//     })
-// )(InputBase)
 
 const Home = () => {
     const classes = useStyles()
@@ -161,74 +142,7 @@ const Home = () => {
                                     <Typography variant="h6">Твиты</Typography>
                                 </Route>
                                 <Route path={['/home', '/home/search']} exact>
-                                    <ListItem
-                                        style={{
-                                            marginTop: 15,
-                                        }}
-                                    >
-                                        <ListItemAvatar
-                                            style={{
-                                                alignSelf: 'end',
-                                            }}
-                                        >
-                                            <Avatar
-                                                style={{
-                                                    width: 50,
-                                                    height: 50,
-                                                }}
-                                                src="https://data.whicdn.com/images/300076584/original.jpg"
-                                            />
-                                        </ListItemAvatar>
-                                        <div
-                                            style={{
-                                                width: '100%',
-                                            }}
-                                        >
-                                            <TextField
-                                                id="outlined-multiline-static"
-                                                multiline
-                                                placeholder="Что происходит?"
-                                                variant="outlined"
-                                                style={{
-                                                    width: '100%',
-                                                }}
-                                            />
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    marginTop: 15,
-                                                }}
-                                            >
-                                                <div>
-                                                    <IconButton>
-                                                        <ImageOutlinedIcon color="primary" />
-                                                    </IconButton>
-                                                    <IconButton>
-                                                        <EmojiEmotionsOutlinedIcon color="primary" />
-                                                    </IconButton>
-                                                </div>
-
-                                                <div
-                                                    style={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                    }}
-                                                >
-                                                    <div>269</div>
-                                                    <IconButton>
-                                                        <DataUsageOutlinedIcon color="primary" />
-                                                    </IconButton>
-                                                    <Button variant={'contained'} color="primary">
-                                                        Твитнуть
-                                                    </Button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {/*<IconButton>*/}
-                                        {/*    <PersonAddIcon />*/}
-                                        {/*</IconButton>*/}
-                                    </ListItem>
+                                    <TweetForm/>
                                 </Route>
                             </Paper>
 

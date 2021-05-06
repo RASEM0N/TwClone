@@ -1,5 +1,5 @@
 import produce, { Draft } from 'immer'
-import { takeEvery, call, put, all, delay } from "redux-saga/effects";
+import { call, put, all, delay, takeLatest } from 'redux-saga/effects'
 import { Action } from 'redux'
 import { apiTweets } from '../../services/api/api'
 import { StateType } from '../store'
@@ -16,7 +16,13 @@ export type TweetType = {
     }
 }
 type InitialStateType = typeof initialState
-export type ActionType = ISetTweetsAction | ISetTweetsLoadingState | IFetchTweetsAction
+export type ActionType =
+    | ISetTweetsAction
+    | ISetTweetsLoadingState
+    | IFetchTweetsAction
+    | IAddTweet
+    | IFetchAddTweet
+    | ISetFormTweetLoadingState
 //#endregion
 
 //#region ENUM
@@ -27,10 +33,23 @@ export enum LoadingStateEnum {
     LOADING = 'LOADING',
 }
 
+export enum LoadingFormStateEnum {
+    ERROR = 'ERROR',
+    NEVER = 'NEVER',
+    LOADING = 'LOADING',
+}
+
 enum TweetsTypeEnum {
+    // берем кучу твитов
     SET_TWEETS = `tweets/SET_TWEETS`,
     FETCH_TWEETS = `tweets/FETCH_TWEETS`,
     SET_LOADING_STATE = `tweets/SET_LOADING_STATE`,
+
+    // эту у формы добавления твита
+    // добавляем (пушим) твит также и в стор
+    ADD_TWEET = 'tweets/ADD_TWEET',
+    FETCH_ADD_TWEET = 'tweets/FETCH_ADD_TWEET',
+    SET_LOADING_FORM_STATE = 'tweets/SET_LOADING_FORM_STATE',
 }
 
 //#endregion
@@ -39,6 +58,7 @@ enum TweetsTypeEnum {
 const initialState = {
     items: [] as Array<TweetType>,
     loading: LoadingStateEnum.NEVER as LoadingStateEnum,
+    loadingForm: LoadingFormStateEnum.NEVER as LoadingFormStateEnum,
 }
 //#endregion
 
@@ -55,6 +75,20 @@ const tweetsReducer = produce((draft: Draft<InitialStateType>, action: ActionTyp
             draft.loading = action.payload
             break
         }
+
+        case TweetsTypeEnum.ADD_TWEET: {
+            draft.items.push(action.payload)
+            draft.loadingForm = LoadingFormStateEnum.NEVER
+            break
+        }
+        case TweetsTypeEnum.SET_LOADING_FORM_STATE: {
+            draft.loadingForm = action.payload
+            break
+        }
+        case TweetsTypeEnum.FETCH_ADD_TWEET: {
+            draft.loadingForm = LoadingFormStateEnum.LOADING
+            break
+        }
     }
 }, initialState)
 export default tweetsReducer
@@ -66,26 +100,53 @@ interface ISetTweetsAction extends Action<TweetsTypeEnum> {
     payload: TweetType[]
 }
 
-export const setTweetsAction = (tweets: TweetType[]): ISetTweetsAction => ({
-    type: TweetsTypeEnum.SET_TWEETS,
-    payload: tweets,
-})
+interface IAddTweet extends Action<TweetsTypeEnum> {
+    type: TweetsTypeEnum.ADD_TWEET
+    payload: TweetType
+}
+
+interface IFetchAddTweet extends Action<TweetsTypeEnum> {
+    type: TweetsTypeEnum.FETCH_ADD_TWEET
+    payload: string
+}
 
 interface IFetchTweetsAction extends Action<TweetsTypeEnum> {
     type: TweetsTypeEnum.FETCH_TWEETS
 }
-
-export const fetchTweetsAction = (): IFetchTweetsAction => ({
-    type: TweetsTypeEnum.FETCH_TWEETS,
-})
 
 interface ISetTweetsLoadingState extends Action<TweetsTypeEnum> {
     type: TweetsTypeEnum.SET_LOADING_STATE
     payload: LoadingStateEnum
 }
 
-export const setTweetsLoadingState = (state: LoadingStateEnum): ISetTweetsLoadingState => ({
+interface ISetFormTweetLoadingState extends Action<TweetsTypeEnum> {
+    type: TweetsTypeEnum.SET_LOADING_FORM_STATE
+    payload: LoadingFormStateEnum
+}
+
+export const fetchTweetsAction = (): IFetchTweetsAction => ({
+    type: TweetsTypeEnum.FETCH_TWEETS,
+})
+export const fetchAddTweetAction = (text: string): IFetchAddTweet => ({
+    type: TweetsTypeEnum.FETCH_ADD_TWEET,
+    payload: text,
+})
+
+const setTweetsAction = (tweets: TweetType[]): ISetTweetsAction => ({
+    type: TweetsTypeEnum.SET_TWEETS,
+    payload: tweets,
+})
+const addTweetAction = (tweet: TweetType): IAddTweet => ({
+    type: TweetsTypeEnum.ADD_TWEET,
+    payload: tweet,
+})
+
+const setTweetsLoadingState = (state: LoadingStateEnum): ISetTweetsLoadingState => ({
     type: TweetsTypeEnum.SET_LOADING_STATE,
+    payload: state,
+})
+const setFormTweetLoadingState = (state: LoadingFormStateEnum): ISetFormTweetLoadingState => ({
+    type: TweetsTypeEnum.SET_LOADING_FORM_STATE,
     payload: state,
 })
 
@@ -99,17 +160,38 @@ const fetchTweetsRequest = function* () {
         const data: TweetType[] = yield call(apiTweets.getTweets)
         yield put(setTweetsAction(data))
     } catch (error) {
-        // console.log(error.message);
         yield put(setTweetsLoadingState(LoadingStateEnum.ERROR))
     }
 }
+const addTweetRequest = function* ({ payload }: IFetchAddTweet) {
+    yield put(setFormTweetLoadingState(LoadingFormStateEnum.LOADING))
+    try {
+        yield delay(400)
+        const data: TweetType = {
+            _id: Math.random().toString(36).substr(2),
+            text: payload,
+            user: {
+                fullname: 'Test',
+                username: 'test',
+                avatarUrl: 'https://source.unsplash.com/random/100x100?5',
+            },
+        }
+        const response: TweetType = yield call(apiTweets.addTweet, data)
+        yield put(addTweetAction(response))
+    } catch (e) {
+        yield put(setFormTweetLoadingState(LoadingFormStateEnum.ERROR))
+    }
+}
 
+const watchFetchAddTweet = function* () {
+    yield takeLatest(TweetsTypeEnum.FETCH_ADD_TWEET, addTweetRequest)
+}
 const watchFetchTweets = function* () {
-    yield takeEvery(TweetsTypeEnum.FETCH_TWEETS, fetchTweetsRequest)
+    yield takeLatest(TweetsTypeEnum.FETCH_TWEETS, fetchTweetsRequest)
 }
 
 export const TweetsSaga = function* () {
-    yield all([watchFetchTweets()])
+    yield all([watchFetchTweets(), watchFetchAddTweet()])
 }
 
 //#endregion
@@ -119,4 +201,6 @@ export const getTweets: Selector<StateType, InitialStateType> = (state) => state
 export const getTweetsItems: Selector<StateType, TweetType[]> = (state) => getTweets(state).items
 export const getLoadingStateTweets: Selector<StateType, LoadingStateEnum> = (state) =>
     getTweets(state).loading
+export const getFormLoadingStateTweets: Selector<StateType, LoadingFormStateEnum> = (state) =>
+    getTweets(state).loadingForm
 //#endregion
