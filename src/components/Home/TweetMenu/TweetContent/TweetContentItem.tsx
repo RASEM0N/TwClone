@@ -4,14 +4,14 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import RepeatIcon from '@material-ui/icons/Repeat'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import ReplyIcon from '@material-ui/icons/Reply'
-import { TweetType } from '../../store/bundles/tweets'
+import { TweetType } from '../../../../store/bundles/tweets'
 import { Link } from 'react-router-dom'
 
 interface PropsType extends TweetType {
     classes: any
 }
 
-const TweetItem: React.FC<PropsType> = ({
+const TweetContentItem: React.FC<PropsType> = ({
     classes,
     _id,
     text,
@@ -71,4 +71,4 @@ const TweetItem: React.FC<PropsType> = ({
     )
 }
 
-export default TweetItem
+export default TweetContentItem

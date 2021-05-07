@@ -5,10 +5,10 @@ import Home from './components/Home/Home'
 
 function App() {
     return (
-        <div className="App">
+        <div>
             <Switch>
-                <Route path='/auth' component={Authorization}/>
-                <Route path='/home' component={Home}/>
+                <Route path="/auth" component={Authorization} />
+                <Route path="/home" component={Home} />
             </Switch>
         </div>
     )

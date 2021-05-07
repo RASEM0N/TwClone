@@ -2,11 +2,11 @@ import React from 'react'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { Link } from 'react-router-dom'
-import { TagType } from '../../store/bundles/tags'
+import { TagType } from '../../../../store/bundles/tags'
 
 interface PropsTypes extends TagType {}
 
-const TagItem: React.FC<PropsTypes> = ({ name, count, _id }) => {
+const InfoTagItem: React.FC<PropsTypes> = ({ name, count, _id }) => {
     return (
         <Link
             to={`/home/search?q=${name}`}
@@ -22,4 +22,4 @@ const TagItem: React.FC<PropsTypes> = ({ name, count, _id }) => {
     )
 }
 
-export default TagItem
+export default InfoTagItem

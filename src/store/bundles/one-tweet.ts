@@ -13,9 +13,9 @@ type ActionType = ISetTweetAction | IFetchTweetAction | ISetTweetLoadingState
 
 //#region ENUM
 enum TweetActionEnum {
-    SET_TWEET = 'tweet/SET_TWEET',
-    FETCH_TWEET = 'tweet/FETCH_TWEET',
-    SET_LOADING_STATE = 'tweet/SET_LOADING_STATE',
+    SET_TWEET = 'one-tweet/SET_TWEET',
+    FETCH_TWEET = 'one-tweet/FETCH_TWEET',
+    SET_LOADING_STATE = 'one-tweet/SET_LOADING_STATE',
 }
 
 //#endregion

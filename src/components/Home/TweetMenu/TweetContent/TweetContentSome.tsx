@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
-import TweetItem from './TweetItem'
-import { useDispatch, useSelector } from 'react-redux'
-import { DispatchType } from '../../store/store'
-import { fetchTweetAction, getLoadingStateTweet, getTweetItem } from '../../store/bundles/tweet'
-import { LoadingStateEnum } from '../../store/bundles/tweets'
 import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    fetchTweetAction,
+    getLoadingStateTweet,
+    getTweetItem,
+} from '../../../../store/bundles/one-tweet'
+import TweetContentItem from './TweetContentItem'
+import { DispatchType } from '../../../../store/store'
+import { LoadingStateEnum } from '../../../../store/bundles/tweets'
 
-const Tweet: React.FC<{ classes: any }> = ({ classes }) => {
+const TweetContentSome: React.FC<{ classes: any }> = ({ classes }) => {
     const dispatch = useDispatch<DispatchType>()
     const history = useHistory()
     const tweet = useSelector(getTweetItem)
@@ -19,7 +23,7 @@ const Tweet: React.FC<{ classes: any }> = ({ classes }) => {
     return (
         <>
             {loading === LoadingStateEnum.LOADED ? (
-                <TweetItem classes={classes} {...tweet} />
+                <TweetContentItem classes={classes} {...tweet} />
             ) : (
                 'loading'
             )}
@@ -27,4 +31,4 @@ const Tweet: React.FC<{ classes: any }> = ({ classes }) => {
     )
 }
 
-export default Tweet
+export default TweetContentSome

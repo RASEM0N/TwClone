@@ -8,14 +8,14 @@ import EmojiEmotionsOutlinedIcon from '@material-ui/icons/EmojiEmotionsOutlined'
 import DataUsageOutlinedIcon from '@material-ui/icons/DataUsageOutlined'
 import ListItem from '@material-ui/core/ListItem'
 import { useDispatch, useSelector } from 'react-redux'
-import { DispatchType } from '../../store/store'
+import { DispatchType } from '../../../../store/store'
 import {
     fetchAddTweetAction,
     getFormLoadingStateTweets,
     LoadingFormStateEnum,
-} from '../../store/bundles/tweets'
+} from '../../../../store/bundles/tweets'
 
-const TweetForm = () => {
+const TweetHeaderForm = () => {
     const dispatch = useDispatch<DispatchType>()
     const [text, setText] = useState<string>('')
     const loadingForm = useSelector(getFormLoadingStateTweets)
@@ -30,9 +30,9 @@ const TweetForm = () => {
             setText('')
         }
     }
-    useEffect(() => {
-        alert(loadingForm)
-    }, [loadingForm])
+    // useEffect(() => {
+    //     alert(loadingForm)
+    // }, [loadingForm])
 
     return (
         <ListItem
@@ -111,4 +111,4 @@ const TweetForm = () => {
     )
 }
 
-export default TweetForm
+export default TweetHeaderForm
