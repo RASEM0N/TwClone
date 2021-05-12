@@ -1,4 +1,4 @@
-import { TweetType } from '../types'
+import { LoadingFormStateEnum, LoadingStateEnum, TweetType } from '../types'
 import {
     IAddTweet,
     IFetchAddTweet,
@@ -6,8 +6,6 @@ import {
     ISetFormTweetLoadingState,
     ISetTweetsAction,
     ISetTweetsLoadingState,
-    LoadingFormStateEnum,
-    LoadingStateEnum,
     TweetsTypeEnum,
 } from './tweets-types'
 

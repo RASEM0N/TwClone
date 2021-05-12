@@ -1,12 +1,11 @@
 import produce, { Draft } from 'immer'
-import { ActionType, InitialStateType, TagsActionEnum } from "./tags-types";
-import { TagType } from "../types";
-import { LoadingStateEnum } from '../tweets/tweets-types'
+import { ActionType, InitialStateType, TagsActionEnum } from './tags-types'
+import { LoadingStateEnum } from '../types'
 
 // --- INITIAL STATE ---
-export const initialState = {
-    items: [] as TagType[],
-    loading: LoadingStateEnum.NEVER as LoadingStateEnum,
+const initialState: InitialStateType = {
+    items: [],
+    loading: LoadingStateEnum.NEVER,
 }
 
 // --- REDUCER ---

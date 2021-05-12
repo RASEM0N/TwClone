@@ -1,9 +1,8 @@
 import { Action } from 'redux'
-import { LoadingStateEnum } from '../tweets/tweets-types'
-import { TagType } from '../types'
-import { initialState } from './tags-reducer'
+import { InitialStateForManyType, LoadingStateEnum, TagType } from '../types'
 
-export type InitialStateType = typeof initialState
+export interface InitialStateType extends InitialStateForManyType<TagType[], LoadingStateEnum> {}
+
 export type ActionType = ISetTagsAction | IFetchTagsAction | ISetTagsLoadingStateAction
 
 // --- ENUM ---

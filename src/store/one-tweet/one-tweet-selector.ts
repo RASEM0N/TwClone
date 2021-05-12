@@ -1,7 +1,6 @@
 import { Selector } from 'reselect'
 import { StateType } from '../store'
-import { LoadingStateEnum } from '../tweets/tweets-types'
-import { TweetType } from '../types'
+import { LoadingStateEnum, TweetType } from '../types'
 import { InitialStateType } from './one-tweet-types'
 
 export const getTweetState: Selector<StateType, InitialStateType> = (state) => state.tweet

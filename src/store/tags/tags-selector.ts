@@ -1,7 +1,6 @@
 import { Selector } from 'reselect'
 import { StateType } from '../store'
-import { LoadingStateEnum } from '../tweets/tweets-types'
-import { TagType } from '../types'
+import { LoadingStateEnum, TagType } from '../types'
 import { InitialStateType } from './tags-types'
 
 export const getTagsState: Selector<StateType, InitialStateType> = (state) => state.tags

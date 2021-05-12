@@ -1,9 +1,8 @@
 import { Action } from 'redux'
-import { LoadingStateEnum } from '../tweets/tweets-types'
-import { TweetType } from '../types'
-import { initialState } from './one-tweet-reducer'
+import { InitialStateForOneType, LoadingStateEnum, TweetType } from '../types'
 
-export type InitialStateType = typeof initialState
+export interface InitialStateType
+    extends InitialStateForOneType<TweetType | null, LoadingStateEnum> {}
 
 export type ActionType = ISetTweetAction | IFetchTweetAction | ISetTweetLoadingState
 

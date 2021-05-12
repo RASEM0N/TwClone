@@ -4,12 +4,12 @@ export interface DefaultType {
   updatedAt?: string
 }
 
+// --- INITIAL STATE ---
 export interface InitialStateForManyType<T, E> {
   items: T
   loading: E
 }
-
-export interface InitialStateForManyType<T, E> {
+export interface InitialStateForOneType<T, E> {
   item: T
   loading: E
 }
@@ -23,9 +23,20 @@ export interface TweetType extends DefaultType {
     avatarUrl: string
   }
 }
-
-// --- TAG ---
 export interface TagType extends DefaultType {
   name: string
   count: string
+}
+
+// --- ENUM ---
+export enum LoadingStateEnum {
+  LOADED = 'LOADED',
+  ERROR = 'ERROR',
+  NEVER = 'NEVER',
+  LOADING = 'LOADING',
+}
+export enum LoadingFormStateEnum {
+  ERROR = 'ERROR',
+  NEVER = 'NEVER',
+  LOADING = 'LOADING',
 }

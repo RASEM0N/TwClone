@@ -1,17 +1,15 @@
 import produce, { Draft } from 'immer'
-import { TweetType } from '../types'
+import { LoadingFormStateEnum, LoadingStateEnum } from '../types'
 import {
     ActionType, InitialStateType,
-    LoadingFormStateEnum,
-    LoadingStateEnum,
     TweetsTypeEnum,
 } from "./tweets-types";
 
 // --- INITIAL STATE ---
-export const initialState = {
-    items: [] as Array<TweetType>,
-    loading: LoadingStateEnum.NEVER as LoadingStateEnum,
-    loadingForm: LoadingFormStateEnum.NEVER as LoadingFormStateEnum,
+const initialState: InitialStateType = {
+    items: [] ,
+    loading: LoadingStateEnum.NEVER,
+    loadingForm: LoadingFormStateEnum.NEVER,
 }
 
 // --- REDUCER ---

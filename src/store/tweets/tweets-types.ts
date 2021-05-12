@@ -1,9 +1,15 @@
 // --- TYPE ---
 import { Action } from 'redux'
-import { TweetType } from '../types'
-import { initialState } from './tweets-reducer'
+import {
+    InitialStateForManyType,
+    LoadingFormStateEnum,
+    LoadingStateEnum,
+    TweetType,
+} from '../types'
 
-export type InitialStateType = typeof initialState
+export interface InitialStateType extends InitialStateForManyType<TweetType[], LoadingStateEnum> {
+    loadingForm: LoadingFormStateEnum
+}
 export type ActionType =
     | ISetTweetsAction
     | ISetTweetsLoadingState
@@ -13,19 +19,6 @@ export type ActionType =
     | ISetFormTweetLoadingState
 
 // --- ENUM ---
-export enum LoadingStateEnum {
-    LOADED = 'LOADED',
-    ERROR = 'ERROR',
-    NEVER = 'NEVER',
-    LOADING = 'LOADING',
-}
-
-export enum LoadingFormStateEnum {
-    ERROR = 'ERROR',
-    NEVER = 'NEVER',
-    LOADING = 'LOADING',
-}
-
 export enum TweetsTypeEnum {
     SET_TWEETS = `tweets/SET_TWEETS`,
     FETCH_TWEETS = `tweets/FETCH_TWEETS`,
