@@ -8,6 +8,7 @@ import {
     IconButton,
     Paper,
     ListItemAvatar,
+    Divider,
 } from '@material-ui/core'
 import ImageIcon from '@material-ui/icons/Image'
 import PersonAddIcon from '@material-ui/icons/PersonAdd'
@@ -22,8 +23,18 @@ const InfoMenuUser: React.FC<PropsType> = ({ classes }) => {
         <Paper className={classes.root} variant={'outlined'}>
             <List className={classes.list}>
                 <ListItem>
-                    <Typography variant={'h6'}>Кого почитать</Typography>
+                    <Typography variant={'h6'}>
+                        <b>Кого почитать</b>
+                    </Typography>
                 </ListItem>
+                <Divider
+                    orientation="horizontal"
+                    style={{
+                        width: '100%',
+                        height: '1.5px',
+                        margin: '0 auto',
+                    }}
+                />
                 <ListItem>
                     <ListItemAvatar>
                         <Avatar>

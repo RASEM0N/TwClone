@@ -9,7 +9,8 @@ import InfoMenuUser from './InfoMenuUser'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: theme.spacing(3),
+        marginTop: 12,
+        marginBottom: 25,
         padding: '2px 4px',
         borderRadius: 15,
         display: 'flex',

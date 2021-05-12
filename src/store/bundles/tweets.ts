@@ -155,8 +155,8 @@ const setFormTweetLoadingState = (state: LoadingFormStateEnum): ISetFormTweetLoa
 //#region SAGAS
 const fetchTweetsRequest = function* () {
     yield put(setTweetsLoadingState(LoadingStateEnum.LOADING))
-    yield delay(2000)
     try {
+        yield delay(130000)
         const data: TweetType[] = yield call(apiTweets.getTweets)
         yield put(setTweetsAction(data))
     } catch (error) {
@@ -166,7 +166,6 @@ const fetchTweetsRequest = function* () {
 const addTweetRequest = function* ({ payload }: IFetchAddTweet) {
     yield put(setFormTweetLoadingState(LoadingFormStateEnum.LOADING))
     try {
-        yield delay(400)
         const data: TweetType = {
             _id: Math.random().toString(36).substr(2),
             text: payload,

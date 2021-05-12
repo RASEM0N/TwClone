@@ -8,6 +8,8 @@ import InfoMenu from './InfoMenu/InfoMenu'
 import SideMenu from './SideMenu/SideMenu'
 import TweetMenu from './TweetMenu/TweetMenu'
 
+// border: '1px solid black',
+
 const useStyles = makeStyles((theme) => ({
     container: {
         height: '100vh',
@@ -27,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
         top: 0,
     },
 
-    tweetMenu: {
-    },
+    tweetMenu: {},
 
     infoMenu: {
         position: 'sticky',
@@ -49,15 +50,15 @@ const Home = () => {
     return (
         <Container maxWidth={'lg'} className={classes.container}>
             <Grid container spacing={2} className={classes.root}>
-                <Grid item xs={3} className={classes.sideMenu}>
+                <Grid item sm={1} md={3} className={classes.sideMenu}>
                     <SideMenu />
                 </Grid>
 
-                <Grid item xs={6} className={classes.tweetMenu}>
+                <Grid item sm={7} md={6} className={classes.tweetMenu}>
                     <TweetMenu />
                 </Grid>
 
-                <Grid item xs={3} className={classes.infoMenu}>
+                <Grid item sm={4} md={3} className={classes.infoMenu}>
                     <InfoMenu />
                 </Grid>
             </Grid>

@@ -14,104 +14,98 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         flex: 1,
+        alignItems: 'center',
     },
 
     list: {
         listStyle: 'none',
         padding: 0,
         '& li': {
-            display: 'flex',
-            alignItems: 'center',
+            marginBottom: '14px',
         },
         '& h6': {
             fontWeight: 600,
             fontSize: 20,
             marginLeft: 15,
         },
+        '& button': {
+            paddingRight: '15px'
+        },
     },
 
     logo: {
-        fontSize: 38,
-        marginBottom: 20,
+        fontSize: 34,
     },
     icon: {
         fontSize: 28,
     },
     button: {
-        marginTop: 35,
-        padding: '25px 0px',
-        // margin: '0 auto',
-        alignSelf: 'center',
-        width: 250,
+        margin: '35px 20px',
+        minWidth: '200px',
+        padding: '25px',
     },
 }))
 
 const SideList = () => {
     const classes = useStyles()
 
-
     return (
         <div className={classes.root}>
             <ul className={classes.list}>
                 <li>
                     <IconButton color="primary">
-                        <Link
-                            to="/home"
-                            style={{
-                                color: 'inherit',
-                            }}
-                        >
+                        <Link to="/home">
                             <TwitterIcon className={classes.logo} />
                         </Link>
                     </IconButton>
                 </li>
                 <li>
-                    <IconButton>
+                    <Button>
                         <SearchIcon className={classes.icon} />
-                    </IconButton>
-                    <Hidden smDown>
-                        <Typography variant={'h6'}>Поиск</Typography>
-                    </Hidden>
+                        <Hidden smDown>
+                            <Typography variant={'h6'}>Поиск</Typography>
+                        </Hidden>
+                    </Button>
                 </li>
                 <li>
-                    <IconButton>
+                    <Button>
                         <NotificationsNoneOutlinedIcon className={classes.icon} />
-                    </IconButton>
-                    <Hidden smDown>
-                        <Typography variant={'h6'}>Уведомление</Typography>
-                    </Hidden>
+                        <Hidden smDown>
+                            <Typography variant={'h6'}>Уведомление</Typography>
+                        </Hidden>
+                    </Button>
                 </li>
                 <li>
-                    <IconButton>
+                    <Button>
                         <MailOutlineIcon className={classes.icon} />
-                    </IconButton>
-                    <Hidden smDown>
-                        <Typography variant={'h6'}>Сообщение</Typography>
-                    </Hidden>
+                        <Hidden smDown>
+                            <Typography variant={'h6'}>Сообщение</Typography>
+                        </Hidden>
+                    </Button>
                 </li>
                 <li>
-                    <IconButton>
+                    <Button>
                         <BookmarkBorderIcon className={classes.icon} />
-                    </IconButton>
-                    <Hidden smDown>
-                        <Typography variant={'h6'}>Закладки</Typography>
-                    </Hidden>
+                        <Hidden smDown>
+                            <Typography variant={'h6'}>Закладки</Typography>
+                        </Hidden>
+                    </Button>
                 </li>
                 <li>
-                    <IconButton>
+                    <Button>
                         <ViewListOutlinedIcon className={classes.icon} />
-                    </IconButton>
-                    <Hidden smDown>
-                        <Typography variant={'h6'}>Список</Typography>
-                    </Hidden>
+                        <Hidden smDown>
+                            <Typography variant={'h6'}>Список</Typography>
+                        </Hidden>
+                    </Button>
                 </li>
                 <li>
-                    <IconButton>
+                    <Button>
                         <PersonOutlineIcon className={classes.icon} />
-                    </IconButton>
-                    <Hidden smDown>
-                        <Typography variant={'h6'}>Профиль</Typography>
-                    </Hidden>
+                        <Hidden smDown>
+                            <Typography variant={'h6'}>Профиль</Typography>
+                        </Hidden>
+                    </Button>
                 </li>
             </ul>
             <Button variant="contained" color="primary" className={classes.button}>

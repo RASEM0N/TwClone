@@ -9,23 +9,35 @@ import TweetContentItem from './TweetContentItem'
 import TweetContentSome from './TweetContentSome'
 import { useSelector } from 'react-redux'
 import { StateType } from '../../../../store/store'
-import { makeStyles } from '@material-ui/core'
+import { CircularProgress, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100%',
     },
 
+    contentHeader: {
+        borderTop: 'none',
+        borderLeft: 'none',
+        borderRight: 'none',
+        borderColor: '#ebeef0',
+        padding: '15px 15px 0px',
+    },
+
     buttonGroup: {
+        marginTop: 5,
         display: 'flex',
-        justifyContent: 'space-between',
+        fontSize: 12,
+        color: 'rgba(0, 0, 0, 0.44)',
     },
 
     iconButton: {
-        padding: '20px 0px 5px',
+        // '&:hover': {
+        //     backgroundColor: theme.palette.secondary,
+        // },
     },
     icon: {
-        fontSize: 24,
+        fontSize: 19,
     },
 }))
 
@@ -37,11 +49,25 @@ const TweetContent = () => {
     return (
         <>
             <Route path="/home" exact>
-                {loading === LoadingStateEnum.LOADED
-                    ? tweets.map((tweet) => (
-                          <TweetContentItem key={tweet._id} classes={classes} {...tweet} />
-                      ))
-                    : 'loading...'}
+                {loading === LoadingStateEnum.LOADED ? (
+                    tweets.map((tweet) => (
+                        <TweetContentItem key={tweet._id} classes={classes} {...tweet} />
+                    ))
+                ) : (
+                    <div
+                        style={{
+                            textAlign: 'center',
+                            marginTop: '20%'
+                        }}
+                    >
+                        <CircularProgress
+                            style={{
+                                width: '10%',
+                                height: '10%',
+                            }}
+                        />
+                    </div>
+                )}
             </Route>
             <Route path="/home/tweet/:id" exact>
                 <TweetContentSome classes={classes} />

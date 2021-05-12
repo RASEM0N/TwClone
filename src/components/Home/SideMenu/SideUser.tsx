@@ -28,32 +28,34 @@ const SideUser = () => {
     }
 
     return (
-        <div>
-            <List>
-                <ListItem>
-                    <ListItemAvatar>
-                        <Avatar src="https://data.whicdn.com/images/300076584/original.jpg" />
-                    </ListItemAvatar>
-                    <ListItemText primary="Dock of Shame" secondary="@FavDockOfChannel" />
-                    <IconButton onClick={handleClick}>
-                        {open ? <ExpandLess /> : <ExpandMore />}
-                    </IconButton>
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.listItem}>
-                            <ListItemText primary="Starred" />
-                        </ListItem>
-                        <ListItem button className={classes.listItem}>
-                            <ListItemText primary="Starred" />
-                        </ListItem>
-                        <ListItem button className={classes.listItem}>
-                            <ListItemText primary="Starred" />
-                        </ListItem>
-                    </List>
-                </Collapse>
-            </List>
-        </div>
+        <List>
+            <ListItem
+                style={{
+                    padding: 0,
+                }}
+            >
+                <ListItemAvatar>
+                    <Avatar src="https://data.whicdn.com/images/300076584/original.jpg" />
+                </ListItemAvatar>
+                <ListItemText primary="Dock of Shame" secondary="@FavDockOfChannel" />
+                <IconButton onClick={handleClick}>
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                </IconButton>
+            </ListItem>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    <ListItem button className={classes.listItem}>
+                        <ListItemText primary="Starred" />
+                    </ListItem>
+                    <ListItem button className={classes.listItem}>
+                        <ListItemText primary="Starred" />
+                    </ListItem>
+                    <ListItem button className={classes.listItem}>
+                        <ListItemText primary="Starred" />
+                    </ListItem>
+                </List>
+            </Collapse>
+        </List>
     )
 }
 

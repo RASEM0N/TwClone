@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import Avatar from '@material-ui/core/Avatar'
-import { Button, TextField } from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
+import React, { useEffect, useState } from 'react'
+import {
+    Button,
+    TextField,
+    CircularProgress,
+    Avatar,
+    IconButton,
+    ListItemAvatar,
+    ListItem,
+    Divider,
+} from '@material-ui/core'
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import EmojiEmotionsOutlinedIcon from '@material-ui/icons/EmojiEmotionsOutlined'
-import DataUsageOutlinedIcon from '@material-ui/icons/DataUsageOutlined'
-import ListItem from '@material-ui/core/ListItem'
 import { useDispatch, useSelector } from 'react-redux'
 import { DispatchType } from '../../../../store/store'
 import {
@@ -15,7 +19,7 @@ import {
     LoadingFormStateEnum,
 } from '../../../../store/bundles/tweets'
 
-const TweetHeaderForm = () => {
+const TweetTopForm = () => {
     const dispatch = useDispatch<DispatchType>()
     const [text, setText] = useState<string>('')
     const loadingForm = useSelector(getFormLoadingStateTweets)
@@ -32,12 +36,14 @@ const TweetHeaderForm = () => {
     }
     // useEffect(() => {
     //     alert(loadingForm)
-    // }, [loadingForm])
+  // }, [loadingForm])
 
     return (
         <ListItem
             style={{
-                marginTop: 15,
+                padding: 15,
+                borderBottom: '14px solid #f7f9fa',
+                minHeight: 152
             }}
         >
             <ListItemAvatar
@@ -47,8 +53,8 @@ const TweetHeaderForm = () => {
             >
                 <Avatar
                     style={{
-                        width: 50,
-                        height: 50,
+                        width: 48,
+                        height: 48,
                     }}
                     src="https://data.whicdn.com/images/300076584/original.jpg"
                 />
@@ -65,7 +71,8 @@ const TweetHeaderForm = () => {
                     onChange={handleChange}
                     multiline
                     placeholder="Что происходит?"
-                    variant="outlined"
+                    variant="standard"
+                    helperText={text && text.length < 10 && 'длина меньше 10' || text.length > 270 && 'длина текста больше 270'}
                     style={{
                         width: '100%',
                     }}
@@ -74,7 +81,7 @@ const TweetHeaderForm = () => {
                     style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        marginTop: 15,
+                        marginTop: 5,
                     }}
                 >
                     <div>
@@ -92,15 +99,36 @@ const TweetHeaderForm = () => {
                             alignItems: 'center',
                         }}
                     >
-                        <div>269</div>
-                        <IconButton>
-                            <DataUsageOutlinedIcon color="primary" />
-                        </IconButton>
+                        {text.length > 9 && (
+                            <>
+                                <CircularProgress
+                                    variant="determinate"
+                                    value={text.length > 270 ? 100 : (100 / 270) * text.length}
+                                    style={{
+                                        width: 30,
+                                        height: 30,
+                                    }}
+                                />
+                                <Divider
+                                    orientation="vertical"
+                                    style={{
+                                        margin: '0 15px',
+                                        width: 1,
+                                        height: '70%',
+                                    }}
+                                />
+                            </>
+                        )}
+
                         <Button
                             variant={'contained'}
                             color="primary"
                             type="submit"
-                            disabled={loadingForm === LoadingFormStateEnum.LOADING}
+                            disabled={
+                                loadingForm === LoadingFormStateEnum.LOADING ||
+                                text.length > 270 ||
+                                text.length < 10
+                            }
                         >
                             Твитнуть
                         </Button>
@@ -111,4 +139,4 @@ const TweetHeaderForm = () => {
     )
 }
 
-export default TweetHeaderForm
+export default TweetTopForm

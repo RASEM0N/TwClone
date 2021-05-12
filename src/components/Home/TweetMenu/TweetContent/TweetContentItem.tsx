@@ -3,7 +3,7 @@ import { Avatar, Grid, IconButton, Paper, Typography } from '@material-ui/core'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import RepeatIcon from '@material-ui/icons/Repeat'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import ReplyIcon from '@material-ui/icons/Reply'
+import AirplayIcon from '@material-ui/icons/Airplay';
 import { TweetType } from '../../../../store/bundles/tweets'
 import { Link } from 'react-router-dom'
 
@@ -18,56 +18,99 @@ const TweetContentItem: React.FC<PropsType> = ({
     user: { fullname, username, avatarUrl },
 }) => {
     return (
-        <Link to={`/home/tweet/${_id}`}>
-            <Paper className={classes.contentHeader} variant={'outlined'}>
-                <Grid container spacing={4}>
-                    <Grid item xs={1}>
-                        <Avatar alt="Avatar" src={avatarUrl} />
-                    </Grid>
-                    <Grid item xs={11}>
-                        <Typography
+        <Paper className={classes.contentHeader} variant={'outlined'}>
+            <Grid container>
+                <Grid
+                    item
+                    xs={1}
+
+                >
+                    <Avatar
+                        alt="Avatar"
+                        src={avatarUrl}
+                        style={{
+                            width: 48,
+                            height: 48,
+                        }}
+                    />
+                </Grid>
+                <Grid
+                    item
+                    xs={11}
+                    style={{
+                        paddingLeft: 10,
+                    }}
+                >
+                    <Typography
+                        style={{
+                            marginBottom: 5,
+                        }}
+                    >
+                        <b>{fullname}</b>
+                        <span
                             style={{
-                                marginBottom: 10,
+                                color: 'grey',
                             }}
                         >
-                            <b>{fullname}</b>
-                            <span
-                                style={{
-                                    color: 'grey',
-                                }}
-                            >
-                                &ensp;&ensp;@{username}&ensp;&middot; 1 ч
-                            </span>
+                            &nbsp; @{username} &middot; 1 ч
+                        </span>
+                    </Typography>
+                    <Link to={`/home/tweet/${_id}`}>
+                        <Typography
+                            variant="body1"
+                            style={{
+                                whiteSpace: 'pre-line',
+                                wordWrap: 'break-word',
+                            }}
+                        >
+                            {text}
                         </Typography>
-                        <Typography variant="body1">{text}</Typography>
-                        <div className={classes.contentMenuButtonGroup}>
-                            <IconButton className={classes.contentMenuIconButton}>
-                                <ChatBubbleOutlineIcon
-                                    className={classes.contentMenuIcon}
-                                    color="primary"
-                                    style={{
-                                        marginRight: 10,
-                                    }}
-                                />
-                                <span>1</span>
+                    </Link>
+
+                    <div className={classes.buttonGroup}>
+                        <div
+                            style={{
+                                flex: '0.25',
+                            }}
+                        >
+                            <IconButton className={classes.iconButton}>
+                                <ChatBubbleOutlineIcon className={classes.icon} color="disabled" />
                             </IconButton>
-                            <IconButton className={classes.contentMenuIconButton}>
-                                <RepeatIcon className={classes.contentMenuIcon} color="primary" />
+                            <span>48</span>
+                        </div>
+                        <div
+                            style={{
+                                flex: '0.25',
+                            }}
+                        >
+                            <IconButton className={classes.iconButton}>
+                                <RepeatIcon className={classes.icon} color="disabled" />
                             </IconButton>
-                            <IconButton className={classes.contentMenuIconButton}>
-                                <FavoriteBorderIcon
-                                    className={classes.contentMenuIcon}
-                                    color="primary"
-                                />
+                            <span>873</span>
+                        </div>
+                        <div
+                            style={{
+                                flex: '0.25',
+                            }}
+                        >
+                            <IconButton className={classes.iconButton}>
+                                <FavoriteBorderIcon className={classes.icon} color="disabled" />
                             </IconButton>
-                            <IconButton className={classes.contentMenuIconButton}>
-                                <ReplyIcon className={classes.contentMenuIcon} color="primary" />
+                            <span>4.5 тыс</span>
+                        </div>
+                        <div
+                            style={{
+                                flex: '0.25',
+                            }}
+                        >
+                            <IconButton className={classes.iconButton}>
+                                <AirplayIcon className={classes.icon} color="disabled" />
                             </IconButton>
                         </div>
-                    </Grid>
+                    </div>
                 </Grid>
-            </Paper>
-        </Link>
+            </Grid>
+        </Paper>
     )
 }
 
