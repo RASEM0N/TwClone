@@ -3,9 +3,9 @@ import SearchIcon from '@material-ui/icons/Search'
 import { useDispatch } from 'react-redux'
 import { makeStyles, Paper, InputBase, IconButton } from '@material-ui/core'
 import { DispatchType } from '../../../store/store'
-import { fetchTagsAction } from '../../../store/tags/tags-reducer'
 import InfoTags from './InfoTags/InfoTags'
 import InfoMenuUser from './InfoMenuUser'
+import { fetchTagsAction } from '../../../store/tags/tags-action'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,11 +24,7 @@ const useStyles = makeStyles((theme) => ({
     iconButton: {
         padding: 10,
     },
-    list: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-    },
+
     itemLink: {},
 }))
 
@@ -50,10 +46,10 @@ const InfoMenu = () => {
             </Paper>
 
             {/*list news*/}
-            <InfoTags classes={classes} />
+            <InfoTags/>
 
             {/*Users*/}
-            <InfoMenuUser classes={classes} />
+            <InfoMenuUser />
         </>
     )
 }

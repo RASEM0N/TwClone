@@ -4,11 +4,12 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import RepeatIcon from '@material-ui/icons/Repeat'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import AirplayIcon from '@material-ui/icons/Airplay';
-import { TweetType } from '../../../../store/tweets/tweets-reducer'
 import { Link } from 'react-router-dom'
+import { TweetType } from '../../../../store/types'
+import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 
 interface PropsType extends TweetType {
-    classes: any
+    classes: ClassNameMap
 }
 
 const TweetContentItem: React.FC<PropsType> = ({

@@ -1,16 +1,21 @@
 import React from 'react'
-import Authorization from './components/Authorization/Authorization'
+import PrimaryPage from './components/PrimaryPage'
 import { Switch, Route } from 'react-router-dom'
 import Home from './components/Home/Home'
+import Login from "./components/Authorization/Login";
+import Register from './components/Authorization/Register'
 
-function App() {
+const App = () => {
+    // .... verify authorization
     return (
-        <div>
+        <React.Fragment>
             <Switch>
-                <Route path="/auth" component={Authorization} />
+                <Route path="/" component={PrimaryPage} exact/>
                 <Route path="/home" component={Home} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
             </Switch>
-        </div>
+        </React.Fragment>
     )
 }
 

@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-    fetchTweetAction,
-    getLoadingStateTweet,
-    getTweetItem,
-} from '../../../../store/one-tweet/one-tweet-reducer'
+
 import TweetContentItem from './TweetContentItem'
 import { DispatchType } from '../../../../store/store'
-import { LoadingStateEnum } from '../../../../store/tweets/tweets-reducer'
+import { getLoadingStateTweet, getTweetItem } from "../../../../store/one-tweet/one-tweet-selector";
+import { fetchTweetAction } from "../../../../store/one-tweet/one-tweet-action";
+import { LoadingStateEnum } from '../../../../store/types'
+import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 
-const TweetContentSome: React.FC<{ classes: any }> = ({ classes }) => {
+interface PropsTypes {
+    classes: ClassNameMap
+}
+
+const TweetContentSome: React.FC<PropsTypes> = ({ classes }) => {
     const dispatch = useDispatch<DispatchType>()
     const history = useHistory()
     const tweet = useSelector(getTweetItem)

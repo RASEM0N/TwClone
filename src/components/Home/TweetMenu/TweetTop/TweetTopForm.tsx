@@ -13,11 +13,10 @@ import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import EmojiEmotionsOutlinedIcon from '@material-ui/icons/EmojiEmotionsOutlined'
 import { useDispatch, useSelector } from 'react-redux'
 import { DispatchType } from '../../../../store/store'
-import {
-    fetchAddTweetAction,
-    getFormLoadingStateTweets,
-    LoadingFormStateEnum,
-} from '../../../../store/tweets/tweets-reducer'
+import { getFormLoadingStateTweets } from '../../../../store/tweets/tweets-selector'
+import { fetchAddTweetAction } from '../../../../store/tweets/tweets-action'
+import { LoadingFormStateEnum } from '../../../../store/types'
+
 
 const TweetTopForm = () => {
     const dispatch = useDispatch<DispatchType>()
@@ -34,16 +33,16 @@ const TweetTopForm = () => {
             setText('')
         }
     }
-    // useEffect(() => {
-    //     alert(loadingForm)
-  // }, [loadingForm])
+    //   useEffect(() => {
+    //       alert(loadingForm)
+    // }, [loadingForm])
 
     return (
         <ListItem
             style={{
                 padding: 15,
                 borderBottom: '14px solid #f7f9fa',
-                minHeight: 152
+                minHeight: 152,
             }}
         >
             <ListItemAvatar
@@ -72,7 +71,10 @@ const TweetTopForm = () => {
                     multiline
                     placeholder="Что происходит?"
                     variant="standard"
-                    helperText={text && text.length < 10 && 'длина меньше 10' || text.length > 270 && 'длина текста больше 270'}
+                    helperText={
+                        (text && text.length < 10 && 'длина меньше 10') ||
+                        (text.length > 270 && 'длина текста больше 270')
+                    }
                     style={{
                         width: '100%',
                     }}

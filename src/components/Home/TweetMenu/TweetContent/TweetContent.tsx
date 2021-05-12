@@ -1,15 +1,14 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import {
-    getLoadingStateTweets,
-    getTweetsItems,
-    LoadingStateEnum,
-} from '../../../../store/tweets/tweets-reducer'
+
 import TweetContentItem from './TweetContentItem'
 import TweetContentSome from './TweetContentSome'
 import { useSelector } from 'react-redux'
 import { StateType } from '../../../../store/store'
-import { CircularProgress, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
+import { getLoadingStateTweets, getTweetsItems } from '../../../../store/tweets/tweets-selector'
+import { LoadingStateEnum } from '../../../../store/types'
+import Spinner from '../../../Common/Spinner'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,8 +35,13 @@ const useStyles = makeStyles((theme) => ({
         //     backgroundColor: theme.palette.secondary,
         // },
     },
+
     icon: {
         fontSize: 19,
+    },
+    spinnerShell: {
+        textAlign: 'center',
+        marginTop: '20%',
     },
 }))
 
@@ -54,18 +58,8 @@ const TweetContent = () => {
                         <TweetContentItem key={tweet._id} classes={classes} {...tweet} />
                     ))
                 ) : (
-                    <div
-                        style={{
-                            textAlign: 'center',
-                            marginTop: '20%'
-                        }}
-                    >
-                        <CircularProgress
-                            style={{
-                                width: '10%',
-                                height: '10%',
-                            }}
-                        />
+                    <div className={classes.spinnerShell}>
+                        <Spinner size="10%" />
                     </div>
                 )}
             </Route>

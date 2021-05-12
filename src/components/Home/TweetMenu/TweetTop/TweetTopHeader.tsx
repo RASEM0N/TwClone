@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles, Paper, Typography, IconButton } from '@material-ui/core'
+import { makeStyles, Typography, IconButton } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { Route, useHistory } from 'react-router-dom'
 import TweetTopForm from './TweetTopForm'

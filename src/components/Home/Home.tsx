@@ -2,13 +2,11 @@ import React, { useEffect } from 'react'
 import { Container, Grid, makeStyles } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { DispatchType } from '../../store/store'
-import { fetchTweetsAction } from '../../store/tweets/tweets-reducer'
 
 import InfoMenu from './InfoMenu/InfoMenu'
 import SideMenu from './SideMenu/SideMenu'
 import TweetMenu from './TweetMenu/TweetMenu'
-
-// border: '1px solid black',
+import { fetchTweetsAction } from '../../store/tweets/tweets-action'
 
 const useStyles = makeStyles((theme) => ({
     container: {

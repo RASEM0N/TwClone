@@ -3,7 +3,6 @@ import {
     IconButton,
     List,
     makeStyles,
-    Paper,
     ListItem,
     ListItemAvatar,
     ListItemText,
@@ -17,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     listItem: {
         paddingLeft: 70,
     },
+    listItemAvatar: {
+        padding: 0,
+    },
 }))
 
 const SideUser = () => {
@@ -29,11 +31,7 @@ const SideUser = () => {
 
     return (
         <List>
-            <ListItem
-                style={{
-                    padding: 0,
-                }}
-            >
+            <ListItem className={classes.listItemAvatar}>
                 <ListItemAvatar>
                     <Avatar src="https://data.whicdn.com/images/300076584/original.jpg" />
                 </ListItemAvatar>

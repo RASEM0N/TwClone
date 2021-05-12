@@ -9,16 +9,35 @@ import {
     Paper,
     ListItemAvatar,
     Divider,
+    makeStyles,
 } from '@material-ui/core'
 import ImageIcon from '@material-ui/icons/Image'
 import PersonAddIcon from '@material-ui/icons/PersonAdd'
-import { ClassNameMap } from '@material-ui/core/styles/withStyles'
 
-type PropsType = {
-    classes: ClassNameMap
-}
+const useStyles = makeStyles((theme) => ({
+    root: {
+        marginTop: 12,
+        marginBottom: 25,
+        padding: '2px 4px',
+        borderRadius: 15,
+        display: 'flex',
+        alignItems: 'center',
+        width: 'auto',
+    },
+    list: {
+        width: '100%',
+        maxWidth: 360,
+        backgroundColor: theme.palette.background.paper,
+    },
+    divider: {
+        width: '100%',
+        height: '1.5px',
+        margin: '0 auto',
+    },
+}))
 
-const InfoMenuUser: React.FC<PropsType> = ({ classes }) => {
+const InfoMenuUser: React.FC = () => {
+    const classes = useStyles()
     return (
         <Paper className={classes.root} variant={'outlined'}>
             <List className={classes.list}>
@@ -27,14 +46,7 @@ const InfoMenuUser: React.FC<PropsType> = ({ classes }) => {
                         <b>Кого почитать</b>
                     </Typography>
                 </ListItem>
-                <Divider
-                    orientation="horizontal"
-                    style={{
-                        width: '100%',
-                        height: '1.5px',
-                        margin: '0 auto',
-                    }}
-                />
+                <Divider className={classes.divider} />
                 <ListItem button>
                     <ListItemAvatar>
                         <Avatar>
