@@ -35,7 +35,7 @@ const InfoMenuUser: React.FC<PropsType> = ({ classes }) => {
                         margin: '0 auto',
                     }}
                 />
-                <ListItem>
+                <ListItem button>
                     <ListItemAvatar>
                         <Avatar>
                             <ImageIcon />

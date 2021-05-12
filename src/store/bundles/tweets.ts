@@ -156,7 +156,7 @@ const setFormTweetLoadingState = (state: LoadingFormStateEnum): ISetFormTweetLoa
 const fetchTweetsRequest = function* () {
     yield put(setTweetsLoadingState(LoadingStateEnum.LOADING))
     try {
-        yield delay(130000)
+        yield delay(5000)
         const data: TweetType[] = yield call(apiTweets.getTweets)
         yield put(setTweetsAction(data))
     } catch (error) {

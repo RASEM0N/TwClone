@@ -15,7 +15,7 @@ const InfoTagItem: React.FC<PropsTypes> = ({ name, count, _id }) => {
                 color: 'black',
             }}
         >
-            <ListItem>
+            <ListItem button>
                 <ListItemText primary={name} secondary={`Твитов: ${count}`} />
             </ListItem>
         </Link>

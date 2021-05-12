@@ -85,7 +85,7 @@ const setTagsLoadingStateAction = (state: LoadingStateEnum): ISetTagsLoadingStat
 const fetchTags = function* () {
     yield put(setTagsLoadingStateAction(LoadingStateEnum.LOADING))
     try {
-        yield delay(130000)
+        // yield delay(5000)
         const data: TagType[] = yield call(apiTags.getTags)
         yield put(setTagsAction(data))
     } catch (e) {

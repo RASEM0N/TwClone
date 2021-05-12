@@ -29,10 +29,12 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: 15,
         },
         '& button': {
-            paddingRight: '15px'
+            paddingRight: '20px',
         },
     },
-
+    logoButton: {
+        padding: 13,
+    },
     logo: {
         fontSize: 34,
     },
@@ -53,7 +55,7 @@ const SideList = () => {
         <div className={classes.root}>
             <ul className={classes.list}>
                 <li>
-                    <IconButton color="primary">
+                    <IconButton color="primary" className={classes.logoButton}>
                         <Link to="/home">
                             <TwitterIcon className={classes.logo} />
                         </Link>
