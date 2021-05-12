@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import { ClassNameMap } from '@material-ui/core/styles/withStyles'
 import { Typography, List, ListItem, Paper, CircularProgress, Divider } from '@material-ui/core'
 import InfoTagItem from './InfoTagItem'
-import { LoadingStateEnum } from '../../../../store/bundles/tweets'
-import { getLoadingStateTags, getTagsItems } from '../../../../store/bundles/tags'
+import { LoadingStateEnum } from '../../../../store/tweets/tweets-reducer'
+import { getLoadingStateTags, getTagsItems } from '../../../../store/tags/tags-reducer'
 
 type PropsType = {
     classes: ClassNameMap

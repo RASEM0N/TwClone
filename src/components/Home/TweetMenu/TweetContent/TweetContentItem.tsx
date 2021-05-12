@@ -4,7 +4,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import RepeatIcon from '@material-ui/icons/Repeat'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import AirplayIcon from '@material-ui/icons/Airplay';
-import { TweetType } from '../../../../store/bundles/tweets'
+import { TweetType } from '../../../../store/tweets/tweets-reducer'
 import { Link } from 'react-router-dom'
 
 interface PropsType extends TweetType {

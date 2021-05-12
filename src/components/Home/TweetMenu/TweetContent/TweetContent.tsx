@@ -4,7 +4,7 @@ import {
     getLoadingStateTweets,
     getTweetsItems,
     LoadingStateEnum,
-} from '../../../../store/bundles/tweets'
+} from '../../../../store/tweets/tweets-reducer'
 import TweetContentItem from './TweetContentItem'
 import TweetContentSome from './TweetContentSome'
 import { useSelector } from 'react-redux'

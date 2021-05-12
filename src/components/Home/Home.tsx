@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Container, Grid, makeStyles } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { DispatchType } from '../../store/store'
-import { fetchTweetsAction } from '../../store/bundles/tweets'
+import { fetchTweetsAction } from '../../store/tweets/tweets-reducer'
 
 import InfoMenu from './InfoMenu/InfoMenu'
 import SideMenu from './SideMenu/SideMenu'

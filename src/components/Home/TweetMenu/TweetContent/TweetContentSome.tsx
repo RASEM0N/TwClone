@@ -5,10 +5,10 @@ import {
     fetchTweetAction,
     getLoadingStateTweet,
     getTweetItem,
-} from '../../../../store/bundles/one-tweet'
+} from '../../../../store/one-tweet/one-tweet-reducer'
 import TweetContentItem from './TweetContentItem'
 import { DispatchType } from '../../../../store/store'
-import { LoadingStateEnum } from '../../../../store/bundles/tweets'
+import { LoadingStateEnum } from '../../../../store/tweets/tweets-reducer'
 
 const TweetContentSome: React.FC<{ classes: any }> = ({ classes }) => {
     const dispatch = useDispatch<DispatchType>()

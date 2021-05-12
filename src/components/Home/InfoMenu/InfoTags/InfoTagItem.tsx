@@ -2,7 +2,7 @@ import React from 'react'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { Link } from 'react-router-dom'
-import { TagType } from '../../../../store/bundles/tags'
+import { TagType } from '../../../../store/tags/tags-reducer'
 
 interface PropsTypes extends TagType {}
 

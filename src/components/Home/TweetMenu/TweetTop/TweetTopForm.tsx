@@ -17,7 +17,7 @@ import {
     fetchAddTweetAction,
     getFormLoadingStateTweets,
     LoadingFormStateEnum,
-} from '../../../../store/bundles/tweets'
+} from '../../../../store/tweets/tweets-reducer'
 
 const TweetTopForm = () => {
     const dispatch = useDispatch<DispatchType>()
