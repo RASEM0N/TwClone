@@ -10,6 +10,10 @@ interface ResponseType<T, E = any> {
 export interface AuthTokenType {
     token: string
 }
+export interface LoginRequestDataType {
+    email: string
+    password: string
+}
 
 // --- TWEETS ---
 export interface TweetsResponseType extends ResponseType<TweetType[]> {}
@@ -24,3 +28,4 @@ export interface TagsResponseType extends ResponseType<TagType[]> {}
 export interface OneTagResponseType extends ResponseType<TagType> {}
 
 export interface TagRequestDataType extends AuthTokenType {}
+

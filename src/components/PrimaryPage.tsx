@@ -83,10 +83,10 @@ const PrimaryPage: React.FunctionComponent = () => {
     const history = useHistory()
 
     const toLogin = () => {
-        history.push('/login')
+        history.push('/auth/login')
     }
     const toRegister = () => {
-        history.push('/register')
+        history.push('/auth/register')
     }
 
     return (
