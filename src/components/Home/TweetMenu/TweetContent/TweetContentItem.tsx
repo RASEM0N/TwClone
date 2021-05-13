@@ -3,10 +3,11 @@ import { Avatar, Grid, IconButton, Paper, Typography } from '@material-ui/core'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import RepeatIcon from '@material-ui/icons/Repeat'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import AirplayIcon from '@material-ui/icons/Airplay';
+import AirplayIcon from '@material-ui/icons/Airplay'
 import { Link } from 'react-router-dom'
 import { TweetType } from '../../../../store/types'
-import { ClassNameMap } from "@material-ui/core/styles/withStyles";
+import { ClassNameMap } from '@material-ui/core/styles/withStyles'
+import Moment from 'react-moment'
 
 interface PropsType extends TweetType {
     classes: ClassNameMap
@@ -16,16 +17,13 @@ const TweetContentItem: React.FC<PropsType> = ({
     classes,
     _id,
     text,
+    createdAt,
     user: { fullname, username, avatarUrl },
 }) => {
     return (
         <Paper className={classes.contentHeader} variant={'outlined'}>
             <Grid container>
-                <Grid
-                    item
-                    xs={1}
-
-                >
+                <Grid item xs={1}>
                     <Avatar
                         alt="Avatar"
                         src={avatarUrl}
@@ -53,7 +51,9 @@ const TweetContentItem: React.FC<PropsType> = ({
                                 color: 'grey',
                             }}
                         >
-                            &nbsp; @{username} &middot; 1 ч
+                            &nbsp; @{username} &middot;
+                            <Moment format="YYYY/MM/DD" >{createdAt}</Moment>
+
                         </span>
                     </Typography>
                     <Link to={`/home/tweet/${_id}`}>

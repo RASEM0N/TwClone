@@ -109,12 +109,12 @@ const Login = () => {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link to="/auth/recovery" className={classes.color}>
+                            <Link to="/auth/recovery" className={classes.link}>
                                 Забыли пароль?
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link to="/auth/register" className={classes.color}>
+                            <Link to="/auth/register" className={classes.link}>
                                 Зарегистрироваться в Твиттере
                             </Link>
                         </Grid>
