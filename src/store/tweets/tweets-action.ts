@@ -8,13 +8,14 @@ import {
     ISetTweetsLoadingState,
     TweetsTypeEnum,
 } from './tweets-types'
+import { TweetRequestDataType } from "../../services/api/types";
 
 export const fetchTweetsAction = (): IFetchTweetsAction => ({
     type: TweetsTypeEnum.FETCH_TWEETS,
 })
-export const fetchAddTweetAction = (text: string): IFetchAddTweet => ({
+export const fetchAddTweetAction = (data: TweetRequestDataType): IFetchAddTweet => ({
     type: TweetsTypeEnum.FETCH_ADD_TWEET,
-    payload: text,
+    payload: data,
 })
 
 export const setTweetsAction = (tweets: TweetType[]): ISetTweetsAction => ({

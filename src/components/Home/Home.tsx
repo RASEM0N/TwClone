@@ -27,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
         top: 0,
     },
 
-    tweetMenu: {},
+    tweetMenu: {
+
+    },
 
     infoMenu: {
         position: 'sticky',
@@ -52,7 +54,7 @@ const Home = () => {
                     <SideMenu />
                 </Grid>
 
-                <Grid item sm={7} md={6} className={classes.tweetMenu}>
+                <Grid item sm={7} md={6} className={classes.tweetMenu} >
                     <TweetMenu />
                 </Grid>
 

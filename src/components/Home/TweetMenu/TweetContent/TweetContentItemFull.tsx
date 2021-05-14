@@ -4,16 +4,17 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import TweetContentItem from './TweetContentItem'
 import { DispatchType } from '../../../../store/store'
-import { getLoadingStateTweet, getTweetItem } from "../../../../store/one-tweet/one-tweet-selector";
-import { fetchTweetAction } from "../../../../store/one-tweet/one-tweet-action";
+import { getLoadingStateTweet, getTweetItem } from '../../../../store/one-tweet/one-tweet-selector'
+import { fetchTweetAction } from '../../../../store/one-tweet/one-tweet-action'
 import { LoadingStateEnum } from '../../../../store/types'
-import { ClassNameMap } from "@material-ui/core/styles/withStyles";
+import { ClassNameMap } from '@material-ui/core/styles/withStyles'
+import Spinner from '../../../Common/Spinner'
 
 interface PropsTypes {
     classes: ClassNameMap
 }
 
-const TweetContentSome: React.FC<PropsTypes> = ({ classes }) => {
+const TweetContentItemFull: React.FC<PropsTypes> = ({ classes }) => {
     const dispatch = useDispatch<DispatchType>()
     const history = useHistory()
     const tweet = useSelector(getTweetItem)
@@ -28,10 +29,12 @@ const TweetContentSome: React.FC<PropsTypes> = ({ classes }) => {
             {loading === LoadingStateEnum.LOADED ? (
                 <TweetContentItem classes={classes} {...tweet} />
             ) : (
-                'loading'
+                <div className={classes.spinnerShell}>
+                    <Spinner size="70px" />
+                </div>
             )}
         </>
     )
 }
 
-export default TweetContentSome
+export default TweetContentItemFull

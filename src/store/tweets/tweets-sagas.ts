@@ -1,9 +1,6 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects'
-import {
-    IFetchAddTweet,
-    TweetsTypeEnum,
-} from './tweets-types'
-import { OneTweetResponseType, TweetsResponseType } from "../../services/api/types";
+import { all, call, delay, put, takeLatest } from 'redux-saga/effects'
+import { IFetchAddTweet, TweetsTypeEnum } from './tweets-types'
+import { OneTweetResponseType, TweetsResponseType } from '../../services/api/types'
 import { apiTweets } from '../../services/api/APITweets'
 import {
     addTweetAction,
@@ -32,16 +29,7 @@ const watchFetchTweets = function* () {
 const addTweetRequest = function* ({ payload }: IFetchAddTweet) {
     yield put(setFormTweetLoadingState(LoadingFormStateEnum.LOADING))
     try {
-        const data: TweetType = {
-            _id: Math.random().toString(36).substr(2),
-            text: payload,
-            user: {
-                fullname: 'Test',
-                username: 'test',
-                avatarUrl: 'https://source.unsplash.com/random/100x100?5',
-            },
-        }
-        const response: OneTweetResponseType = yield call(apiTweets.addTweet, data)
+        const response: OneTweetResponseType = yield call(apiTweets.addTweet, payload)
         const tweet = response.data as TweetType
         yield put(addTweetAction(tweet))
     } catch (e) {

@@ -6,10 +6,12 @@ import {
     LoadingStateEnum,
     TweetType,
 } from '../types'
+import { TweetRequestDataType } from "../../services/api/types";
 
 export interface InitialStateType extends InitialStateForManyType<TweetType[], LoadingStateEnum> {
     loadingForm: LoadingFormStateEnum
 }
+
 export type ActionType =
     | ISetTweetsAction
     | ISetTweetsLoadingState
@@ -42,7 +44,7 @@ export interface IAddTweet extends Action<TweetsTypeEnum> {
 
 export interface IFetchAddTweet extends Action<TweetsTypeEnum> {
     type: TweetsTypeEnum.FETCH_ADD_TWEET
-    payload: string
+    payload: TweetRequestDataType
 }
 
 export interface IFetchTweetsAction extends Action<TweetsTypeEnum> {

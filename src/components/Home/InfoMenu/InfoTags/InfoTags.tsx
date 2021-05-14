@@ -53,7 +53,7 @@ const InfoTags: React.FC = () => {
                     tags.map((tag) => <InfoTagItem {...tag} />)
                 ) : (
                     <div className={classes.spinnerShell}>
-                        <Spinner size="20%" />
+                        <Spinner size="60px" />
                     </div>
                 )}
             </List>

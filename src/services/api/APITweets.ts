@@ -1,6 +1,5 @@
-import axios from 'axios'
-import { TweetType } from '../../store/types'
-import { OneTweetResponseType, TweetsResponseType } from './types'
+import axios from '../../core/api'
+import { OneTweetResponseType, TweetRequestDataType, TweetsResponseType } from "./types";
 
 class APITweets {
     async getTweets(): Promise<TweetsResponseType> {
@@ -13,7 +12,7 @@ class APITweets {
         return response.data
     }
 
-    async addTweet(tweet: TweetType): Promise<OneTweetResponseType> {
+    async addTweet(tweet: TweetRequestDataType): Promise<OneTweetResponseType> {
         const response = await axios.post(`/tweets`, tweet)
         return response.data
     }

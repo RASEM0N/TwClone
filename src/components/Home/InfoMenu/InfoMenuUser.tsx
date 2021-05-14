@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core'
 import ImageIcon from '@material-ui/icons/Image'
 import PersonAddIcon from '@material-ui/icons/PersonAdd'
+import Spinner from "../../Common/Spinner";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
         height: '1.5px',
         margin: '0 auto',
     },
+    spinnerShell: {
+        textAlign: 'center',
+        marginTop: '50%',
+        transform: 'translateY(-100%)',
+    },
 }))
 
 const InfoMenuUser: React.FC = () => {
@@ -47,7 +53,7 @@ const InfoMenuUser: React.FC = () => {
                     </Typography>
                 </ListItem>
                 <Divider className={classes.divider} />
-                <ListItem button>
+                {/*<ListItem button>
                     <ListItemAvatar>
                         <Avatar>
                             <ImageIcon />
@@ -57,7 +63,10 @@ const InfoMenuUser: React.FC = () => {
                     <IconButton>
                         <PersonAddIcon />
                     </IconButton>
-                </ListItem>
+                </ListItem>*/}
+                <div className={classes.spinnerShell}>
+                    <Spinner size="60px" />
+                </div>
             </List>
         </Paper>
     )

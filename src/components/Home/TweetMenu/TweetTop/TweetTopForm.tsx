@@ -17,7 +17,6 @@ import { getFormLoadingStateTweets } from '../../../../store/tweets/tweets-selec
 import { fetchAddTweetAction } from '../../../../store/tweets/tweets-action'
 import { LoadingFormStateEnum } from '../../../../store/types'
 
-
 const TweetTopForm = () => {
     const dispatch = useDispatch<DispatchType>()
     const [text, setText] = useState<string>('')
@@ -29,7 +28,7 @@ const TweetTopForm = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (text.length > 5) {
-            dispatch(fetchAddTweetAction(text))
+            dispatch(fetchAddTweetAction({ text }))
             setText('')
         }
     }
@@ -72,8 +71,8 @@ const TweetTopForm = () => {
                     placeholder="Что происходит?"
                     variant="standard"
                     helperText={
-                        (text && text.length < 10 && 'длина меньше 10') ||
-                        (text.length > 270 && 'длина текста больше 270')
+                        (text && text.length < 10 && 'Длина не должна быть меньше 10') ||
+                        (text.length > 270 && 'Длина текста не должна больше 270')
                     }
                     style={{
                         width: '100%',

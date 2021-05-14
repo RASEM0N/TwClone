@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { TweetType } from '../../../../store/types'
 import { ClassNameMap } from '@material-ui/core/styles/withStyles'
 import Moment from 'react-moment'
+import normalizingValue from '../../../../utils/normalizingValue'
 
 interface PropsType extends TweetType {
     classes: ClassNameMap
@@ -51,8 +52,7 @@ const TweetContentItem: React.FC<PropsType> = ({
                                 color: 'grey',
                             }}
                         >
-                            &nbsp; @{username} &middot;
-                            <Moment format="YYYY/MM/DD" >{createdAt}</Moment>
+                            &nbsp; @{username} &middot; <Moment format="DD MMMM H:mm" >{createdAt}</Moment>
 
                         </span>
                     </Typography>
@@ -77,7 +77,7 @@ const TweetContentItem: React.FC<PropsType> = ({
                             <IconButton className={classes.iconButton}>
                                 <ChatBubbleOutlineIcon className={classes.icon} color="disabled" />
                             </IconButton>
-                            <span>48</span>
+                            <span>{normalizingValue(Math.floor(Math.random()*10_000))}</span>
                         </div>
                         <div
                             style={{
@@ -87,7 +87,7 @@ const TweetContentItem: React.FC<PropsType> = ({
                             <IconButton className={classes.iconButton}>
                                 <RepeatIcon className={classes.icon} color="disabled" />
                             </IconButton>
-                            <span>873</span>
+                            <span>{normalizingValue(Math.floor(Math.random()*4_120))}</span>
                         </div>
                         <div
                             style={{
@@ -97,7 +97,7 @@ const TweetContentItem: React.FC<PropsType> = ({
                             <IconButton className={classes.iconButton}>
                                 <FavoriteBorderIcon className={classes.icon} color="disabled" />
                             </IconButton>
-                            <span>4.5 тыс</span>
+                            <span>{normalizingValue(Math.floor(Math.random()*130))}</span>
                         </div>
                         <div
                             style={{

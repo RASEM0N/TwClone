@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../core/api'
 import { TagsResponseType } from './types'
 
 class APITags {
@@ -9,5 +9,3 @@ class APITags {
 }
 
 export const apiTags = new APITags()
-
-

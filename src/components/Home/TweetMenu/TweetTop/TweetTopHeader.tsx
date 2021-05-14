@@ -40,7 +40,7 @@ const TweetTopHeader = () => {
                     </IconButton>
                 </Route>
                 <Route path="/home/tweet">
-                    <Typography variant="h6">Твитнуть</Typography>
+                    <Typography variant="h6">Твит</Typography>
                 </Route>
                 <Route path={['/home', '/home/search']} exact>
                     <Typography variant="h6">Твиты</Typography>

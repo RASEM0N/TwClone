@@ -27,7 +27,7 @@ const tweetsReducer = produce((draft: Draft<InitialStateType>, action: ActionTyp
         }
 
         case TweetsTypeEnum.ADD_TWEET: {
-            draft.items.push(action.payload)
+            draft.items.unshift(action.payload)
             draft.loadingForm = LoadingFormStateEnum.NEVER
             break
         }

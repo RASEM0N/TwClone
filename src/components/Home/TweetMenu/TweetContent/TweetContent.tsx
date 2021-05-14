@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import TweetContentItem from './TweetContentItem'
-import TweetContentSome from './TweetContentSome'
+import TweetContentItemFull from './TweetContentItemFull'
 import { useSelector } from 'react-redux'
 import { StateType } from '../../../../store/store'
 import { makeStyles } from '@material-ui/core'
@@ -59,12 +59,12 @@ const TweetContent = () => {
                     ))
                 ) : (
                     <div className={classes.spinnerShell}>
-                        <Spinner size="10%" />
+                        <Spinner size="70px" />
                     </div>
                 )}
             </Route>
             <Route path="/home/tweet/:id" exact>
-                <TweetContentSome classes={classes} />
+                <TweetContentItemFull classes={classes} />
             </Route>
         </>
     )
