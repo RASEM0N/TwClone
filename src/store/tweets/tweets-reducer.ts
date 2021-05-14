@@ -7,7 +7,8 @@ const initialState: InitialStateType = {
     items: [],
     loading: LoadingStateEnum.NEVER,
     loadingForm: LoadingFormStateEnum.NEVER,
-    loadingDelete: LoadingStateEnum.NEVER,
+    loadingDelete: LoadingStateEnum.LOADED,
+    idToDelete: null,
 }
 
 // --- REDUCER ---
@@ -52,6 +53,11 @@ const tweetsReducer = produce((draft: Draft<InitialStateType>, action: ActionTyp
         }
         case TweetsTypeEnum.STATUS_DELETE_TWEET: {
             draft.loadingDelete = action.payload
+            break
+        }
+        case TweetsTypeEnum.FETCH_DELETE_TWEET: {
+            draft.idToDelete = action.payload
+            break
         }
     }
 }, initialState)

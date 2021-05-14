@@ -11,6 +11,7 @@ import { TweetRequestDataType } from '../../services/api/types'
 export interface InitialStateType extends InitialStateForManyType<TweetType[], LoadingStateEnum> {
     loadingForm: LoadingFormStateEnum
     loadingDelete: LoadingStateEnum
+    idToDelete: null | string
 }
 
 export type ActionType =

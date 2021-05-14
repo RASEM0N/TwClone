@@ -19,7 +19,6 @@ class APITweets {
 
     async delete(id: string): Promise<undefined> {
         const response = await axios.delete(`/tweets/${id}`)
-        console.log(response.data);
         return response.data
     }
 }

@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
         borderRight: 'none',
         borderColor: '#ebeef0',
         padding: '15px 15px 0px',
+        position: 'relative',
     },
 
     buttonGroup: {
@@ -59,23 +60,38 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '50%',
         cursor: 'pointer',
         '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.05)'
-        }
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        },
     },
     itemUserInfo: {
         marginBottom: 5,
         display: 'flex',
 
         '& div': {
-            flex: 1
+            flex: 1,
         },
         '& span': {
             color: 'grey',
-
-        }
+        },
     },
     itemPiece: {
         flex: '0.25',
+    },
+    spinnerShellItem: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        color: 'red',
+        backgroundColor: 'rgba(255,255,255, 0.8)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    text: {
+        cursor: 'text',
+        userSelect: 'text'
     },
 }))
 

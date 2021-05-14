@@ -1,4 +1,4 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, delay, put, takeLatest } from "redux-saga/effects";
 import { IFetchAddTweet, IFetchDeleteTweet, TweetsTypeEnum } from './tweets-types'
 import { OneTweetResponseType, TweetsResponseType } from '../../services/api/types'
 import { apiTweets } from '../../services/api/APITweets'
@@ -46,6 +46,7 @@ const watchFetchAddTweet = function* () {
 const deleteTweetRequest = function* ({ payload }: IFetchDeleteTweet) {
     yield put(statusDeleteTweetAction(LoadingStateEnum.LOADING))
     try {
+        yield delay(1000)
         yield call(apiTweets.delete, payload)
         yield put(deleteTweetAction(payload))
     } catch (e) {

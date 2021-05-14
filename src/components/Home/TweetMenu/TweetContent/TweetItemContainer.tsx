@@ -80,6 +80,18 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 20,
         letterSpacing: 1.4
     },
+    spinnerShellItem: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        color: 'red',
+        backgroundColor: 'rgba(255,255,255, 0.8)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 }))
 
 const TweetItemContainer: React.FC<PropsTypes> = () => {
