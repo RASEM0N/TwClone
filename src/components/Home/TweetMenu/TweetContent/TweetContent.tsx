@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import TweetContentItem from './TweetContentItem'
-import TweetContentItemFull from './TweetContentItemFull'
+import TweetItemContainer from './TweetItemContainer'
 import { useSelector } from 'react-redux'
 import { StateType } from '../../../../store/store'
 import { makeStyles } from '@material-ui/core'
@@ -43,6 +43,40 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         marginTop: '20%',
     },
+
+    avatar: {
+        width: 48,
+        height: 48,
+    },
+    itemText: {
+        whiteSpace: 'pre-line',
+        wordWrap: 'break-word',
+    },
+    itemContent: {
+        paddingLeft: 10,
+    },
+    iconDot: {
+        borderRadius: '50%',
+        cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.05)'
+        }
+    },
+    itemUserInfo: {
+        marginBottom: 5,
+        display: 'flex',
+
+        '& div': {
+            flex: 1
+        },
+        '& span': {
+            color: 'grey',
+
+        }
+    },
+    itemPiece: {
+        flex: '0.25',
+    },
 }))
 
 const TweetContent = () => {
@@ -64,7 +98,7 @@ const TweetContent = () => {
                 )}
             </Route>
             <Route path="/home/tweet/:id" exact>
-                <TweetContentItemFull classes={classes} />
+                <TweetItemContainer />
             </Route>
         </>
     )

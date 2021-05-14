@@ -7,17 +7,23 @@ import {
     ListItemAvatar,
     ListItemText,
     Collapse,
+    Typography,
 } from '@material-ui/core'
 import Avatar from '@material-ui/core/Avatar'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
+import MeetingRoomOutlinedIcon from '@material-ui/icons/MeetingRoomOutlined';
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 
 const useStyles = makeStyles((theme) => ({
     listItem: {
-        paddingLeft: 70,
+        padding: '5px 0px 5px 55px '
     },
     listItemAvatar: {
         padding: 0,
+    },
+    icon: {
+        marginRight: 20,
     },
 }))
 
@@ -43,13 +49,12 @@ const SideUser = () => {
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     <ListItem button className={classes.listItem}>
-                        <ListItemText primary="Starred" />
+                        <SettingsOutlinedIcon color="action" className={classes.icon} />
+                        <Typography variant="body1">Settings</Typography>
                     </ListItem>
                     <ListItem button className={classes.listItem}>
-                        <ListItemText primary="Starred" />
-                    </ListItem>
-                    <ListItem button className={classes.listItem}>
-                        <ListItemText primary="Starred" />
+                        <MeetingRoomOutlinedIcon color="action" className={classes.icon} />
+                        <Typography variant="body1">Logout</Typography>
                     </ListItem>
                 </List>
             </Collapse>
