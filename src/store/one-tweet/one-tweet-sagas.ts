@@ -10,7 +10,7 @@ const fetchTweetById = function* ({ payload }: IFetchTweetAction) {
     yield put(setTweetLoadingState(LoadingStateEnum.LOADING))
     yield delay(500)
     try {
-        const response: OneTweetResponseType = yield call(apiTweets.getTweetById, payload)
+        const response: OneTweetResponseType = yield call(apiTweets.getById, payload)
         const tweet = response.data as TweetType
         yield put(setTweetAction(tweet))
     } catch (e) {

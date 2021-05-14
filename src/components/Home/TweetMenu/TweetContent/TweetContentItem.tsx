@@ -10,6 +10,9 @@ import { TweetType } from '../../../../store/types'
 import { ClassNameMap } from '@material-ui/core/styles/withStyles'
 import Moment from 'react-moment'
 import normalizingValue from '../../../../utils/normalizingValue'
+import { useDispatch } from 'react-redux'
+import { DispatchType } from '../../../../store/store'
+import { fetchDeleteTweetAction } from "../../../../store/tweets/tweets-action";
 
 interface PropsType extends TweetType {
     classes: ClassNameMap
@@ -23,9 +26,12 @@ const TweetContentItem: React.FC<PropsType> = ({
     user: { fullname, username, avatarUrl },
 }) => {
     const [open, setOpen] = useState<null | HTMLElement>(null)
+    const dispatch = useDispatch<DispatchType>()
 
+    const deleteTweet = () => {
+        dispatch(fetchDeleteTweetAction(_id))
+    }
     const handleClick = (e: any) => {
-        console.log(e.currentTarget)
         setOpen(e.currentTarget)
     }
     const handleClose = () => {
@@ -54,9 +60,9 @@ const TweetContentItem: React.FC<PropsType> = ({
                             onClick={handleClick}
                         />
                         <Menu keepMounted open={!!open} onClose={handleClose} anchorEl={open}>
-                            <MenuItem onClick={handleClose}>Перейти</MenuItem>
-                            <MenuItem onClick={handleClose}>Обновить</MenuItem>
-                            <MenuItem onClick={handleClose}>Удалить</MenuItem>
+                            <MenuItem>Перейти</MenuItem>
+                            <MenuItem>Обновить</MenuItem>
+                            <MenuItem onClick={deleteTweet}>Удалить</MenuItem>
                         </Menu>
                     </Typography>
                     <Link to={`/home/tweet/${_id}`}>

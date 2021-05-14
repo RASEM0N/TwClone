@@ -88,7 +88,7 @@ const TweetContent = () => {
         <>
             <Route path="/home" exact>
                 {loading === LoadingStateEnum.LOADED ? (
-                    tweets.map((tweet) => (
+                    tweets.map((tweet, idx) => (
                         <TweetContentItem key={tweet._id} classes={classes} {...tweet} />
                     ))
                 ) : (
