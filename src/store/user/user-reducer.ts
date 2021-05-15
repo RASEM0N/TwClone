@@ -1,6 +1,6 @@
-import { LoadingStateEnum } from "../types";
-import produce, { Draft } from "immer";
-import { ActionType, InitialStateType, UserTypeEnum } from "./user-types";
+import { LoadingStateEnum } from '../types'
+import produce, { Draft } from 'immer'
+import { ActionType, InitialStateType, UserTypeEnum } from './user-types'
 
 // --- INITIAL STATE ---
 const initialState: InitialStateType = {
@@ -25,8 +25,9 @@ const userReducer = produce((draft: Draft<InitialStateType>, action: ActionType)
             break
         }
 
-        case UserTypeEnum.LOGOUT:{
+        case UserTypeEnum.LOGOUT: {
             draft.loading = LoadingStateEnum.NEVER
+            localStorage.removeItem('token')
             draft.item = null
             draft.token = null
             break

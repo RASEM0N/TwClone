@@ -2,7 +2,12 @@ import { all, call, delay, put, takeLatest } from 'redux-saga/effects'
 
 import { LoadingFormStateEnum, LoadingStateEnum, TweetType, UserPublicType } from '../types'
 import { IFetchUserById, UserTypeEnum } from './otherUsers-types'
-import { setUserByIdAction, setUsersAction, statusLoadingUsersAction } from './otherUsers-action'
+import {
+    setUserByIdAction,
+    setUsersAction,
+    statusLoadingUserByIdAction,
+    statusLoadingUsersAction
+} from "./otherUsers-action";
 import { apiUsers } from '../../services/api/APIUsers'
 import { getAllUserResponseUserType, getUserByIdResponseUserType } from '../../services/api/types'
 
@@ -24,13 +29,14 @@ const watchFetchUsers = function* () {
 
 // --- GET BY ID ---
 const fetchUserByIdRequest = function* ({ payload }: IFetchUserById) {
-    yield put(statusLoadingUsersAction(LoadingStateEnum.LOADING))
+    yield put(statusLoadingUserByIdAction(LoadingStateEnum.LOADING))
     try {
+        console.log(payload);
         const response: getUserByIdResponseUserType = yield call(apiUsers.getById, payload)
         const user = response.data as UserPublicType
         yield put(setUserByIdAction(user))
     } catch (e) {
-        yield put(statusLoadingUsersAction(LoadingStateEnum.ERROR))
+        yield put(statusLoadingUserByIdAction(LoadingStateEnum.ERROR))
     }
 }
 const watchFetchUserById = function* () {

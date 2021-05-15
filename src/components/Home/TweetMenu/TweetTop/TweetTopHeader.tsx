@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles, Typography, IconButton } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import { Route, useHistory } from 'react-router-dom'
+import { Route, Switch, useHistory } from 'react-router-dom'
 import TweetTopForm from './TweetTopForm'
 
 const useStyles = makeStyles((theme) => ({
@@ -33,18 +33,26 @@ const TweetTopHeader = () => {
         <>
             <div className={classes.header}>
                 <Route path={'/home/:any'}>
-                    <IconButton onClick={goBack} style={{
-                        marginRight: '15px'
-                    }}>
+                    <IconButton
+                        onClick={goBack}
+                        style={{
+                            marginRight: '15px',
+                        }}
+                    >
                         <ArrowBackIcon color="primary" />
                     </IconButton>
                 </Route>
-                <Route path="/home/tweet">
-                    <Typography variant="h6">Твит</Typography>
-                </Route>
-                <Route path={['/home', '/home/search']} exact>
-                    <Typography variant="h6">Твиты</Typography>
-                </Route>
+                <Switch>
+                    <Route path="/home/tweet">
+                        <Typography variant="h6">Твит</Typography>
+                    </Route>
+                    <Route path={['/home', '/home/search']} exact>
+                        <Typography variant="h6">Твиты</Typography>
+                    </Route>
+                    <Route path="/home/user/:userid">
+                        <Typography variant="h6">Рома</Typography>
+                    </Route>
+                </Switch>
             </div>
 
             <Route path={['/home', '/home/search']} exact>

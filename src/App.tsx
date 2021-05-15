@@ -51,7 +51,9 @@ const App = () => {
                 <React.Fragment>
                     <Switch>
                         <Route path="/" component={PrimaryPage} exact />
-                        <Route path="/home" component={Home} />
+                        {loading === LoadingStateEnum.LOADED && (
+                            <Route path="/home" component={Home} />
+                        )}
                         <Route path="/auth/login" component={Login} />
                         <Route path="/auth/verify" component={AuthVerify} />
                         <Route path="/auth/recovery" component={AuthRecovery} />
