@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { makeStyles, Paper, InputBase, IconButton } from '@material-ui/core'
 import { DispatchType } from '../../../store/store'
 import InfoTags from './InfoTags/InfoTags'
-import InfoMenuUser from './InfoMenuUser'
+import InfoMenuUser from './InfoMenuUser/InfoMenuUser'
 import { fetchTagsAction } from '../../../store/tags/tags-action'
 
 const useStyles = makeStyles((theme) => ({

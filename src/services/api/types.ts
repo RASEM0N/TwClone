@@ -1,4 +1,4 @@
-import { TagType, TweetType, UserPrivateType } from '../../store/types'
+import { TagType, TweetType, UserPrivateType, UserPublicType } from "../../store/types";
 
 interface ResponseType<T, E = any> {
     status: 'success' | 'error'
@@ -18,6 +18,11 @@ export interface LoginRequestDataType {
 }
 
 export interface AuthorizationResponseUserType extends ResponseType<UserPrivateType> {}
+
+
+// --- USERS ---
+export interface getUserByIdResponseUserType extends ResponseType<UserPublicType> {}
+export interface getAllUserResponseUserType extends ResponseType<UserPublicType[]> {}
 
 // --- TWEETS ---
 export interface TweetsResponseType extends ResponseType<TweetType[]> {}

@@ -1,19 +1,25 @@
 import React from 'react'
 import {
-    Typography,
+    Avatar,
+    Divider,
+    IconButton,
     List,
     ListItem,
-    Avatar,
-    ListItemText,
-    IconButton,
-    Paper,
     ListItemAvatar,
-    Divider,
+    ListItemText,
     makeStyles,
+    Paper,
+    Typography,
 } from '@material-ui/core'
 import ImageIcon from '@material-ui/icons/Image'
 import PersonAddIcon from '@material-ui/icons/PersonAdd'
-import Spinner from "../../Common/Spinner";
+import Spinner from '../../../Common/Spinner'
+import { DispatchType } from '../../../../store/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUsersAction } from '../../../../store/otherUsers/otherUsers-action'
+import { getUsers, getUsersStatus } from '../../../../store/otherUsers/otherUsers-selector'
+import { LoadingStateEnum } from '../../../../store/types'
+import InfoMenuUserItem from './InfoMenuUserItem'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,7 +49,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const InfoMenuUser: React.FC = () => {
+    const dispatch = useDispatch<DispatchType>()
+    const users = useSelector(getUsers)
+    const loading = useSelector(getUsersStatus)
     const classes = useStyles()
+
+    React.useEffect(() => {
+        dispatch(fetchUsersAction())
+    }, [])
+
     return (
         <Paper className={classes.root} variant={'outlined'}>
             <List className={classes.list}>
@@ -53,20 +67,15 @@ const InfoMenuUser: React.FC = () => {
                     </Typography>
                 </ListItem>
                 <Divider className={classes.divider} />
-                {/*<ListItem button>
-                    <ListItemAvatar>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Dock of Shame" secondary="@FavDockOfChannel" />
-                    <IconButton>
-                        <PersonAddIcon />
-                    </IconButton>
-                </ListItem>*/}
-                <div className={classes.spinnerShell}>
-                    <Spinner size="60px" />
-                </div>
+                {loading === LoadingStateEnum.LOADING ? (
+                    <div className={classes.spinnerShell}>
+                        <Spinner size="60px" />
+                    </div>
+                ) : (
+                    users.map((user) => {
+                        return <InfoMenuUserItem user={user} key={user._id} />
+                    })
+                )}
             </List>
         </Paper>
     )

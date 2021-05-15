@@ -3,7 +3,7 @@ import { AuthorizationResponseUserType, LoginRequestDataType } from './types'
 
 class APIAuthorization {
     async getMe(): Promise<AuthorizationResponseUserType> {
-        const response = await axios.get(`/users/me`)
+        const response = await axios.get(`/auth/me`)
         return response.data
     }
 
