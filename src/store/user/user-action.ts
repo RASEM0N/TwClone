@@ -1,6 +1,13 @@
-import { IBackFetchUser, IFetchUser, ISetUser, IStatusUser, UserTypeEnum } from './user-types'
+import {
+    IBackFetchUser,
+    IFetchUser,
+    ILogout,
+    ISetUser,
+    IStatusUser,
+    UserTypeEnum,
+} from './user-types'
 import { LoadingStateEnum, UserPrivateType } from '../types'
-import { LoginRequestDataType } from "../../services/api/types";
+import { LoginRequestDataType } from '../../services/api/types'
 
 // --- GET ---
 export const setUserAction = (user: UserPrivateType, token: string): ISetUser => ({
@@ -12,14 +19,18 @@ export const setUserAction = (user: UserPrivateType, token: string): ISetUser =>
 })
 export const fetchUserAction = (values: LoginRequestDataType): IFetchUser => ({
     type: UserTypeEnum.FETCH_USER,
-    payload: values
+    payload: values,
 })
 export const backFetchUserAction = (): IBackFetchUser => ({
-    type: UserTypeEnum.BACK_FETCH_USER
+    type: UserTypeEnum.BACK_FETCH_USER,
 })
 export const statusUserAction = (status: LoadingStateEnum): IStatusUser => ({
     type: UserTypeEnum.STATUS_LOADING_USER,
     payload: status,
+})
+
+export const logoutAction = (): ILogout => ({
+    type: UserTypeEnum.LOGOUT,
 })
 
 // --- CREATE ---

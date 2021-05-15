@@ -16,11 +16,13 @@ import { DispatchType } from '../../../../store/store'
 import { getFormLoadingStateTweets } from '../../../../store/tweets/tweets-selector'
 import { fetchAddTweetAction } from '../../../../store/tweets/tweets-action'
 import { LoadingFormStateEnum } from '../../../../store/types'
+import { getUser } from '../../../../store/user/user-selector'
 
 const TweetTopForm = () => {
     const dispatch = useDispatch<DispatchType>()
     const [text, setText] = useState<string>('')
     const loadingForm = useSelector(getFormLoadingStateTweets)
+    const user = useSelector(getUser)
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value)
@@ -54,7 +56,7 @@ const TweetTopForm = () => {
                         width: 48,
                         height: 48,
                     }}
-                    src="https://data.whicdn.com/images/300076584/original.jpg"
+                    src={user?.avatarUrl}
                 />
             </ListItemAvatar>
             <form
@@ -67,12 +69,14 @@ const TweetTopForm = () => {
                     id="text"
                     value={text}
                     onChange={handleChange}
+                    disabled={!user?.confirmed}
                     multiline
                     placeholder="Что происходит?"
                     variant="standard"
                     helperText={
                         (text && text.length < 10 && 'Длина не должна быть меньше 10') ||
-                        (text.length > 270 && 'Длина текста не должна больше 270')
+                        (text.length > 270 && 'Длина текста не должна больше 270') ||
+                        (!user?.confirmed && 'Пользователь не потвержден')
                     }
                     style={{
                         width: '100%',
@@ -128,7 +132,8 @@ const TweetTopForm = () => {
                             disabled={
                                 loadingForm === LoadingFormStateEnum.LOADING ||
                                 text.length > 270 ||
-                                text.length < 10
+                                text.length < 10 ||
+                                !user?.confirmed
                             }
                         >
                             Твитнуть

@@ -24,6 +24,13 @@ const userReducer = produce((draft: Draft<InitialStateType>, action: ActionType)
             draft.token = null
             break
         }
+
+        case UserTypeEnum.LOGOUT:{
+            draft.loading = LoadingStateEnum.NEVER
+            draft.item = null
+            draft.token = null
+            break
+        }
     }
 }, initialState)
 
