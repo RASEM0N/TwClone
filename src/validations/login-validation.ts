@@ -1,10 +1,10 @@
 import * as yup from 'yup'
 
 const loginValidationSchema = yup.object({
-    email: yup.string().email('Некорректная почта').required('Требуется электронная почта'),
+    username: yup.string().email('Некорректная почта').required('Требуется электронная почта'),
     password: yup
         .string()
-        .min(8, 'Пароль должен быть минимум в длину 8 символов')
+        .min(6, 'Пароль должен быть минимум в длину 6 символов')
         .required('Требуется пароль'),
 })
 

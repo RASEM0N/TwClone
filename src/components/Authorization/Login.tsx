@@ -6,6 +6,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useFormik } from 'formik'
 import loginValidationSchema from '../../validations/login-validation'
 import { LoginRequestDataType } from '../../services/api/types'
+import { DispatchType } from '../../store/store'
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserAction } from '../../store/user/user-action'
+import { getUser } from "../../store/user/user-selector";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -39,15 +43,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
     const classes = useStyles()
+    const dispatch = useDispatch<DispatchType>()
 
     const formik = useFormik<LoginRequestDataType>({
         initialValues: {
-            email: '',
+            username: '',
             password: '',
         },
         validationSchema: loginValidationSchema,
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2))
+            dispatch(fetchUserAction(values))
         },
     })
 
@@ -73,12 +78,12 @@ const Login = () => {
                         margin="normal"
                         required
                         fullWidth
-                        value={formik.values.email}
+                        value={formik.values.username}
                         onChange={formik.handleChange}
-                        error={formik.touched.email && Boolean(formik.errors.email)}
-                        helperText={formik.touched.email && formik.errors.email}
+                        error={formik.touched.username && Boolean(formik.errors.username)}
+                        helperText={formik.touched.username && formik.errors.username}
                         label="Адресс электронной почты"
-                        name="email"
+                        name="username"
                         autoComplete="email"
                     />
                     <TextField

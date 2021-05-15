@@ -1,9 +1,10 @@
-import { TagType, TweetType } from '../../store/types'
+import { TagType, TweetType, UserPrivateType } from '../../store/types'
 
 interface ResponseType<T, E = any> {
     status: 'success' | 'error'
     data?: T
     errors?: E
+    token?: string
 }
 
 // --- AUTHORIZATION ---
@@ -12,9 +13,11 @@ export interface AuthTokenType {
 }
 
 export interface LoginRequestDataType {
-    email: string
+    username: string
     password: string
 }
+
+export interface AuthorizationResponseUserType extends ResponseType<UserPrivateType> {}
 
 // --- TWEETS ---
 export interface TweetsResponseType extends ResponseType<TweetType[]> {}
@@ -30,4 +33,4 @@ export interface TagsResponseType extends ResponseType<TagType[]> {}
 
 export interface OneTagResponseType extends ResponseType<TagType> {}
 
-export interface TagRequestDataType extends AuthTokenType {}
+export interface TagRequestDataType {}

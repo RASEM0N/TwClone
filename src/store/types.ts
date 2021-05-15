@@ -11,6 +11,7 @@ export interface UserPublicType extends DefaultType {
     fullname: string
 }
 
+// полные данные о пользователе
 export interface UserPrivateType extends UserPublicType {
     email: string
     confirmed: boolean
