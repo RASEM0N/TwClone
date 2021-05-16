@@ -6,9 +6,13 @@ import { Link } from 'react-router-dom'
 
 interface PropsTypes {
     user: UserPublicType
+    access: boolean
 }
 
-const InfoMenuUserItem: React.FC<PropsTypes> = ({ user: { avatarUrl, username, _id, fullname } }) => {
+const InfoMenuUserItem: React.FC<PropsTypes> = ({
+    user: { avatarUrl, username, _id, fullname },
+    access,
+}) => {
     const addPerson = (e: any) => {
         e.preventDefault()
     }
@@ -19,9 +23,11 @@ const InfoMenuUserItem: React.FC<PropsTypes> = ({ user: { avatarUrl, username, _
                     <Avatar src={avatarUrl} />
                 </ListItemAvatar>
                 <ListItemText primary={fullname} secondary={`@${username}`} />
-                <IconButton onClick={addPerson}>
-                    <PersonAddIcon />
-                </IconButton>
+                {!access && (
+                    <IconButton onClick={addPerson}>
+                        <PersonAddIcon />
+                    </IconButton>
+                )}
             </ListItem>
         </Link>
     )

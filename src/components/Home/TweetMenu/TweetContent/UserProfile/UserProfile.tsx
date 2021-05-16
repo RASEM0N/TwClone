@@ -8,13 +8,14 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 import { getUserById, getUserByIdStatus } from '../../../../../store/otherUsers/otherUsers-selector'
 import { Avatar, CardHeader, Divider, Paper, Tab, Tabs } from '@material-ui/core'
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined'
 import Moment from 'react-moment'
-import { DispatchType } from "../../../../../store/store";
-import { fetchUserByIdAction } from "../../../../../store/otherUsers/otherUsers-action";
+import { DispatchType } from '../../../../../store/store'
+import { fetchUserByIdAction } from '../../../../../store/otherUsers/otherUsers-action'
+import { getUser } from '../../../../../store/user/user-selector'
 
 const useStyles = makeStyles({
     root: {
@@ -32,11 +33,12 @@ const UserProfile = () => {
     const history = useHistory()
     const loading = useSelector(getUserByIdStatus)
     const user = useSelector(getUserById)
+    const userMe = useSelector(getUser)
 
     const dispatch = useDispatch<DispatchType>()
     React.useEffect(() => {
-      const id = history.location.pathname.split('/home/user/')[1]
-      dispatch(fetchUserByIdAction(id))
+        const id = history.location.pathname.split('/home/user/')[1]
+        dispatch(fetchUserByIdAction(id))
     }, [history.location.pathname])
     const [value, setValue] = React.useState(0)
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -80,16 +82,17 @@ const UserProfile = () => {
                                 src={user?.avatarUrl}
                             />
                         </div>
-
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            style={{
-                                marginBottom: 20,
-                            }}
-                        >
-                            Изменить профиль
-                        </Button>
+                        {user?._id === userMe?._id && (
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                style={{
+                                    marginBottom: 20,
+                                }}
+                            >
+                                Изменить профиль
+                            </Button>
+                        )}
                     </div>
                 </CardMedia>
                 <CardContent>
@@ -138,24 +141,24 @@ const UserProfile = () => {
                         <b>0</b>&nbsp;читателей
                     </Typography>
                 </CardContent>
-                <Divider orientation="horizontal" />
+                {/*<Divider orientation="horizontal" />*/}
 
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        <b>О себе</b>
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {!!user && (
-                            <>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab,
-                                accusantium adipisci architecto culpa dolores facere impedit minus,
-                                optio quas quasi repudiandae veniam. Amet asperiores fuga harum nemo
-                                porro, quo tempora ut voluptatibus. Autem dolorem eos esse, facilis
-                                neque veniam!
-                            </>
-                        )}
-                    </Typography>
-                </CardContent>
+                {/*<CardContent>*/}
+                {/*    <Typography gutterBottom variant="h5" component="h2">*/}
+                {/*        <b>О себе</b>*/}
+                {/*    </Typography>*/}
+                {/*    <Typography variant="body2" color="textSecondary" component="p">*/}
+                {/*        {!!user && (*/}
+                {/*            <>*/}
+                {/*                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab,*/}
+                {/*                accusantium adipisci architecto culpa dolores facere impedit minus,*/}
+                {/*                optio quas quasi repudiandae veniam. Amet asperiores fuga harum nemo*/}
+                {/*                porro, quo tempora ut voluptatibus. Autem dolorem eos esse, facilis*/}
+                {/*                neque veniam!*/}
+                {/*            </>*/}
+                {/*        )}*/}
+                {/*    </Typography>*/}
+                {/*</CardContent>*/}
             </CardActionArea>
             <Divider orientation="horizontal" />
 

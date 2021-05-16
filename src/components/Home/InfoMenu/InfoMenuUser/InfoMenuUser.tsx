@@ -20,6 +20,7 @@ import { fetchUsersAction } from '../../../../store/otherUsers/otherUsers-action
 import { getUsers, getUsersStatus } from '../../../../store/otherUsers/otherUsers-selector'
 import { LoadingStateEnum } from '../../../../store/types'
 import InfoMenuUserItem from './InfoMenuUserItem'
+import { getUser } from '../../../../store/user/user-selector'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const InfoMenuUser: React.FC = () => {
     const dispatch = useDispatch<DispatchType>()
     const users = useSelector(getUsers)
+    const userMe = useSelector(getUser)
     const loading = useSelector(getUsersStatus)
     const classes = useStyles()
 
@@ -73,7 +75,13 @@ const InfoMenuUser: React.FC = () => {
                     </div>
                 ) : (
                     users.map((user) => {
-                        return <InfoMenuUserItem user={user} key={user._id} />
+                        return (
+                            <InfoMenuUserItem
+                                user={user}
+                                key={user._id}
+                                access={user._id === userMe?._id}
+                            />
+                        )
                     })
                 )}
             </List>
