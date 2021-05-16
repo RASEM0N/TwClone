@@ -32,6 +32,7 @@ export interface InitialStateForOneType<T, E> {
 export interface TweetType extends DefaultType {
     text: string
     user: UserPublicType
+    image?: string
 }
 
 // --- TAG ---

@@ -19,6 +19,7 @@ const TweetContentItem: React.FC<PropsType> = ({
     _id,
     text,
     createdAt,
+    image,
     user: { fullname, username, avatarUrl },
 }) => {
     const [open, setOpen] = useState<null | HTMLElement>(null)
@@ -68,6 +69,23 @@ const TweetContentItem: React.FC<PropsType> = ({
                 <Typography variant="body1" className={classes.text}>
                     {text}
                 </Typography>
+                {image && (
+                    <div
+                        style={{
+                            marginTop: 20,
+                            maxHeight: '300px',
+                        }}
+                    >
+                        <img
+                            src={image}
+                            alt="PHOTO"
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                            }}
+                        />
+                    </div>
+                )}
                 <Typography color="primary" className={classes.data}>
                     <Moment format="HH:mm a &middot; DD MMMM YYYY">{createdAt}</Moment>
                 </Typography>

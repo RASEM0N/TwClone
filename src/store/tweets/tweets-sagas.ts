@@ -1,6 +1,10 @@
-import { all, call, delay, put, takeLatest } from "redux-saga/effects";
+import { all, call, delay, put, takeLatest } from 'redux-saga/effects'
 import { IFetchAddTweet, IFetchDeleteTweet, TweetsTypeEnum } from './tweets-types'
-import { OneTweetResponseType, TweetsResponseType } from '../../services/api/types'
+import {
+    OneTweetResponseType,
+    TweetsResponseType,
+    uploadImageResponseType,
+} from '../../services/api/types'
 import { apiTweets } from '../../services/api/APITweets'
 import {
     addTweetAction,
@@ -11,6 +15,7 @@ import {
     statusDeleteTweetAction,
 } from './tweets-action'
 import { LoadingFormStateEnum, LoadingStateEnum, TweetType } from '../types'
+import { uploadImage } from '../../utils/uploadImage'
 
 // --- GET  ---
 const fetchTweetsRequest = function* () {
@@ -31,6 +36,11 @@ const watchFetchTweets = function* () {
 const addTweetRequest = function* ({ payload }: IFetchAddTweet) {
     yield put(setFormTweetLoadingState(LoadingFormStateEnum.LOADING))
     try {
+        let imgResponse: uploadImageResponseType
+        if (payload.file) {
+            imgResponse = yield call(uploadImage, payload.file)
+            payload.photoUrl = imgResponse.data?.photoUrl
+        }
         const response: OneTweetResponseType = yield call(apiTweets.create, payload)
         const tweet = response.data as TweetType
         yield put(addTweetAction(tweet))
@@ -59,4 +69,3 @@ const watchFetchDeleteTweet = function* () {
 export const TweetsSaga = function* () {
     yield all([watchFetchTweets(), watchFetchAddTweet(), watchFetchDeleteTweet()])
 }
-

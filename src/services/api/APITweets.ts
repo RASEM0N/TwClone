@@ -13,7 +13,14 @@ class APITweets {
     }
 
     async create(tweet: TweetRequestDataType): Promise<OneTweetResponseType> {
-        const response = await axios.post(`/tweets`, tweet)
+        const data: any = {
+            text: tweet.text,
+        }
+        if (tweet.photoUrl) {
+            data.image = tweet.photoUrl
+        }
+        console.log(data)
+        const response = await axios.post(`/tweets`, data)
         return response.data
     }
 

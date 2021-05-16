@@ -9,7 +9,6 @@ import {
     ListItem,
     Divider,
 } from '@material-ui/core'
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import EmojiEmotionsOutlinedIcon from '@material-ui/icons/EmojiEmotionsOutlined'
 import { useDispatch, useSelector } from 'react-redux'
 import { DispatchType } from '../../../../store/store'
@@ -17,12 +16,20 @@ import { getFormLoadingStateTweets } from '../../../../store/tweets/tweets-selec
 import { fetchAddTweetAction } from '../../../../store/tweets/tweets-action'
 import { LoadingFormStateEnum } from '../../../../store/types'
 import { getUser } from '../../../../store/user/user-selector'
+import UploadImages from './UploadImages'
+import { TweetRequestDataType } from '../../../../services/api/types'
+
+export interface ImageObj {
+    blobUrl: string
+    file: File
+}
 
 const TweetTopForm = () => {
     const dispatch = useDispatch<DispatchType>()
     const [text, setText] = useState<string>('')
     const loadingForm = useSelector(getFormLoadingStateTweets)
     const user = useSelector(getUser)
+    const [images, setImages] = React.useState<ImageObj[]>([])
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value)
@@ -30,13 +37,15 @@ const TweetTopForm = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (text.length > 5) {
-            dispatch(fetchAddTweetAction({ text }))
+            const data: TweetRequestDataType = {
+                text: text,
+            }
+            if (images.length > 0) data.file = images[0].file
+            dispatch(fetchAddTweetAction(data))
+            setImages([])
             setText('')
         }
     }
-    //   useEffect(() => {
-    //       alert(loadingForm)
-    // }, [loadingForm])
 
     return (
         <ListItem
@@ -89,11 +98,17 @@ const TweetTopForm = () => {
                         marginTop: 5,
                     }}
                 >
-                    <div>
-                        <IconButton>
-                            <ImageOutlinedIcon color="primary" />
-                        </IconButton>
-                        <IconButton>
+                    <div
+                        style={{
+                            display: 'flex',
+                        }}
+                    >
+                        <UploadImages images={images} onChangeImages={setImages} />
+                        <IconButton
+                            style={{
+                                alignSelf: 'flex-start',
+                            }}
+                        >
                             <EmojiEmotionsOutlinedIcon color="primary" />
                         </IconButton>
                     </div>

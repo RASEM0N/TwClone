@@ -25,12 +25,14 @@ const TweetContentItem: React.FC<PropsType> = ({
     _id,
     text,
     createdAt,
+    image,
     user: { fullname, username, avatarUrl },
 }) => {
     const [open, setOpen] = useState<null | HTMLElement>(null)
     const dispatch = useDispatch<DispatchType>()
     const loading = useSelector(getStatusDeleteTweet)
     const idToDelete = useSelector(getIdTweetToDelete)
+
     const deleteTweet = (e: any) => {
         setOpen(null)
         e.preventDefault()
@@ -87,6 +89,24 @@ const TweetContentItem: React.FC<PropsType> = ({
                         >
                             {text}
                         </Typography>
+                        {image && (
+                            <div
+                                style={{
+                                    maxWidth: '500px',
+                                    marginTop: 20,
+                                    maxHeight: '300px',
+                                }}
+                            >
+                                <img
+                                    src={image}
+                                    alt="PHOTO"
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                    }}
+                                />
+                            </div>
+                        )}
 
                         <div className={classes.buttonGroup}>
                             <div className={classes.itemPiece}>
