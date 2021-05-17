@@ -1,20 +1,20 @@
 import { all, call, delay, put, takeLatest } from 'redux-saga/effects'
 import { apiTweets } from '../../services/api/APITweets'
 import { IFetchTweetAction, TweetActionEnum } from './one-tweet-types'
-import { setTweetAction, setTweetLoadingState } from './one-tweet-action'
 import { LoadingStateEnum, TweetType } from '../types'
 import { OneTweetResponseType } from '../../services/api/types'
+import { setStatusTweet, setTweet } from './one-tweet-reducer'
 
 // --- БЕРЕМ ТВИТ ПО ID ---
 const fetchTweetById = function* ({ payload }: IFetchTweetAction) {
-    yield put(setTweetLoadingState(LoadingStateEnum.LOADING))
+    yield put(setStatusTweet(LoadingStateEnum.LOADING))
     yield delay(500)
     try {
         const response: OneTweetResponseType = yield call(apiTweets.getById, payload)
         const tweet = response.data as TweetType
-        yield put(setTweetAction(tweet))
+        yield put(setTweet(tweet))
     } catch (e) {
-        yield put(setTweetLoadingState(LoadingStateEnum.ERROR))
+        yield put(setStatusTweet(LoadingStateEnum.ERROR))
     }
 }
 const watchFetchTagById = function* () {

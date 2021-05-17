@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { DispatchType } from '../../../../store/store'
 import { getLoadingStateTweet, getTweetItem } from '../../../../store/one-tweet/one-tweet-selector'
-import { fetchTweetAction } from '../../../../store/one-tweet/one-tweet-action'
 import { LoadingStateEnum } from '../../../../store/types'
 import Spinner from '../../../Common/Spinner'
 import TweetItem from './TweetItem'
 import { makeStyles } from '@material-ui/core'
+import { fetchTweetAction } from '../../../../store/one-tweet/one-tweet-reducer'
 
 interface PropsTypes {}
 
@@ -108,7 +108,7 @@ const TweetItemContainer: React.FC<PropsTypes> = () => {
 
     return (
         <>
-            {loading === LoadingStateEnum.LOADED ? (
+            {loading === LoadingStateEnum.LOADED && tweet ? (
                 <TweetItem classes={classes} {...tweet} />
             ) : (
                 <div className={classes.spinnerShell}>
