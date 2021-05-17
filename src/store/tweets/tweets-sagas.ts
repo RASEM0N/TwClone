@@ -1,40 +1,37 @@
-import { all, call, delay, put, takeLatest } from 'redux-saga/effects'
-import { IFetchAddTweet, IFetchDeleteTweet, TweetsTypeEnum } from './tweets-types'
-import {
-    OneTweetResponseType,
-    TweetsResponseType,
-    uploadImageResponseType,
-} from '../../services/api/types'
-import { apiTweets } from '../../services/api/APITweets'
-import {
-    addTweetAction,
-    deleteTweetAction,
-    setFormTweetLoadingState,
-    setTweetsAction,
-    setTweetsLoadingState,
-    statusDeleteTweetAction,
-} from './tweets-action'
-import { LoadingFormStateEnum, LoadingStateEnum, TweetType } from '../types'
-import { uploadImage } from '../../utils/uploadImage'
+import { all, call, delay, put, takeLatest } from "redux-saga/effects";
+import { IFetchAddTweet, IFetchDeleteTweet, TweetsTypeEnum } from "./tweets-types";
+import { OneTweetResponseType, TweetsResponseType, uploadImageResponseType } from "../../services/api/types";
+import { apiTweets } from "../../services/api/APITweets";
 
-// --- GET  ---
+import { LoadingFormStateEnum, LoadingStateEnum, TweetType } from "../types";
+import { uploadImage } from "../../utils/uploadImage";
+import {
+    addTweet,
+    deleteTweet,
+    setStatusDeleteOneTweet,
+    setStatusLoadingOneTweet,
+    setStatusLoadingTweets,
+    setTweets
+} from "./tweets-reducer";
+
+// ------ ------ ------ ------ ------
 const fetchTweetsRequest = function* () {
-    yield put(setTweetsLoadingState(LoadingStateEnum.LOADING))
+    yield put(setStatusLoadingTweets(LoadingStateEnum.LOADING))
     try {
         const response: TweetsResponseType = yield call(apiTweets.get)
         const tweets = response.data as TweetType[]
-        yield put(setTweetsAction(tweets))
+        yield put(setTweets(tweets))
     } catch (error) {
-        yield put(setTweetsLoadingState(LoadingStateEnum.ERROR))
+        yield put(setStatusLoadingTweets(LoadingStateEnum.ERROR))
     }
 }
 const watchFetchTweets = function* () {
     yield takeLatest(TweetsTypeEnum.FETCH_TWEETS, fetchTweetsRequest)
 }
 
-// --- CREATE ---
+// ------ ------ ------ ------ ------
 const addTweetRequest = function* ({ payload }: IFetchAddTweet) {
-    yield put(setFormTweetLoadingState(LoadingFormStateEnum.LOADING))
+    yield put(setStatusLoadingOneTweet(LoadingFormStateEnum.LOADING))
     try {
         let imgResponse: uploadImageResponseType
         if (payload.file) {
@@ -43,29 +40,39 @@ const addTweetRequest = function* ({ payload }: IFetchAddTweet) {
         }
         const response: OneTweetResponseType = yield call(apiTweets.create, payload)
         const tweet = response.data as TweetType
-        yield put(addTweetAction(tweet))
+        yield put(addTweet(tweet))
     } catch (e) {
-        yield put(setFormTweetLoadingState(LoadingFormStateEnum.ERROR))
+        yield put(setStatusLoadingOneTweet(LoadingFormStateEnum.ERROR))
     }
 }
 const watchFetchAddTweet = function* () {
     yield takeLatest(TweetsTypeEnum.FETCH_ADD_TWEET, addTweetRequest)
 }
 
-// --- DELETE ---
+// ------ ------ ------ ------ ------
 const deleteTweetRequest = function* ({ payload }: IFetchDeleteTweet) {
-    yield put(statusDeleteTweetAction(LoadingStateEnum.LOADING))
+    yield put(
+        setStatusDeleteOneTweet({
+            status: LoadingStateEnum.LOADING,
+            id: payload,
+        })
+    )
     try {
         yield delay(1000)
         yield call(apiTweets.delete, payload)
-        yield put(deleteTweetAction(payload))
+        yield put(deleteTweet(payload))
     } catch (e) {
-        yield put(statusDeleteTweetAction(LoadingStateEnum.ERROR))
+        yield put(setStatusDeleteOneTweet({
+            status: LoadingStateEnum.ERROR,
+            id: null
+        }))
     }
 }
 const watchFetchDeleteTweet = function* () {
     yield takeLatest(TweetsTypeEnum.FETCH_DELETE_TWEET, deleteTweetRequest)
 }
+
+// ------ ------ ------ ------ ------
 export const TweetsSaga = function* () {
     yield all([watchFetchTweets(), watchFetchAddTweet(), watchFetchDeleteTweet()])
 }

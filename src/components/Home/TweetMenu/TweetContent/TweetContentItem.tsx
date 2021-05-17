@@ -12,9 +12,9 @@ import Moment from 'react-moment'
 import normalizingValue from '../../../../utils/normalizingValue'
 import { useDispatch, useSelector } from 'react-redux'
 import { DispatchType } from '../../../../store/store'
-import { fetchDeleteTweetAction } from '../../../../store/tweets/tweets-action'
 import Spinner from '../../../Common/Spinner'
 import { getIdTweetToDelete, getStatusDeleteTweet } from '../../../../store/tweets/tweets-selector'
+import { fetchDeleteTweetAction } from "../../../../store/tweets/tweets-reducer";
 
 interface PropsType extends TweetType {
     classes: ClassNameMap

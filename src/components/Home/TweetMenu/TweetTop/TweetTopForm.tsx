@@ -13,11 +13,11 @@ import EmojiEmotionsOutlinedIcon from '@material-ui/icons/EmojiEmotionsOutlined'
 import { useDispatch, useSelector } from 'react-redux'
 import { DispatchType } from '../../../../store/store'
 import { getFormLoadingStateTweets } from '../../../../store/tweets/tweets-selector'
-import { fetchAddTweetAction } from '../../../../store/tweets/tweets-action'
 import { LoadingFormStateEnum } from '../../../../store/types'
 import { getUser } from '../../../../store/user/user-selector'
 import UploadImages from './UploadImages'
 import { TweetRequestDataType } from '../../../../services/api/types'
+import { fetchAddTweetAction } from '../../../../store/tweets/tweets-reducer'
 
 export interface ImageObj {
     blobUrl: string

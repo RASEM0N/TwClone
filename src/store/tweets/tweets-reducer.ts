@@ -1,6 +1,7 @@
-import produce, { Draft } from 'immer'
-import { LoadingFormStateEnum, LoadingStateEnum } from '../types'
-import { ActionType, InitialStateType, TweetsTypeEnum } from './tweets-types'
+import { LoadingFormStateEnum, LoadingStateEnum, TweetType } from '../types'
+import { InitialStateType, TweetsTypeEnum } from './tweets-types'
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { TweetRequestDataType } from '../../services/api/types'
 
 // --- INITIAL STATE ---
 const initialState: InitialStateType = {
@@ -11,54 +12,73 @@ const initialState: InitialStateType = {
     idToDelete: null,
 }
 
-// --- REDUCER ---
-const tweetsReducer = produce((draft: Draft<InitialStateType>, action: ActionType) => {
-    switch (action.type) {
-        // get
-        case TweetsTypeEnum.SET_TWEETS: {
-            draft.items = action.payload
-            draft.loading = LoadingStateEnum.LOADED
-            break
-        }
-        case TweetsTypeEnum.SET_LOADING_STATE: {
-            draft.items = []
-            draft.loading = action.payload
-            break
-        }
+//         case TweetsTypeEnum.FETCH_ADD_TWEET: {
+//             state.loadingForm = LoadingFormStateEnum.LOADING
+//             break
 
-        // create
-        case TweetsTypeEnum.ADD_TWEET: {
-            draft.items.unshift(action.payload)
-            draft.loadingForm = LoadingFormStateEnum.NEVER
-            break
-        }
-        case TweetsTypeEnum.SET_LOADING_FORM_STATE: {
-            draft.loadingForm = action.payload
-            break
-        }
-        case TweetsTypeEnum.FETCH_ADD_TWEET: {
-            draft.loadingForm = LoadingFormStateEnum.LOADING
-            break
-        }
-
-        // delete
-        case TweetsTypeEnum.DELETE_TWEET: {
-            draft.loadingDelete = LoadingStateEnum.LOADED
-            draft.items.forEach((tweet, idx) => {
+const tweet = createSlice({
+    name: 'tweet',
+    initialState: initialState,
+    reducers: {
+        // ------ ------ ------ ------ ------
+        setTweets: (state, action: PayloadAction<TweetType[]>) => {
+            state.items = action.payload
+            state.loading = LoadingStateEnum.LOADED
+        },
+        setStatusLoadingTweets: (state, action: PayloadAction<LoadingStateEnum>) => {
+            state.items = []
+            state.loading = action.payload
+        },
+        // ------ ------ ------ ------ ------
+        addTweet: (state, action: PayloadAction<TweetType>) => {
+            state.items.unshift(action.payload)
+            state.loadingForm = LoadingFormStateEnum.NEVER
+        },
+        setStatusLoadingOneTweet: (state, action: PayloadAction<LoadingFormStateEnum>) => {
+            state.loadingForm = action.payload
+        },
+        // ------ ------ ------ ------ ------
+        deleteTweet: (state, action: PayloadAction<string>) => {
+            state.loadingDelete = LoadingStateEnum.LOADED
+            state.items.forEach((tweet, idx) => {
                 if (tweet._id === action.payload) {
-                    draft.items.splice(idx, 1)
+                    state.items.splice(idx, 1)
                 }
             })
-            break
-        }
-        case TweetsTypeEnum.STATUS_DELETE_TWEET: {
-            draft.loadingDelete = action.payload
-            break
-        }
-        case TweetsTypeEnum.FETCH_DELETE_TWEET: {
-            draft.idToDelete = action.payload
-            break
-        }
-    }
-}, initialState)
-export default tweetsReducer
+        },
+        setStatusDeleteOneTweet: (
+            state,
+            action: PayloadAction<{
+                status: LoadingStateEnum
+                id: string | null
+            }>
+        ) => {
+            if (action.payload.status) {
+                state.idToDelete = action.payload.id
+            }
+            state.loadingDelete = action.payload.status
+        },
+    },
+})
+
+export const fetchTweetsAction = createAction<void, TweetsTypeEnum.FETCH_TWEETS>(
+    TweetsTypeEnum.FETCH_TWEETS
+)
+export const fetchAddTweetAction = createAction<
+    TweetRequestDataType,
+    TweetsTypeEnum.FETCH_ADD_TWEET
+>(TweetsTypeEnum.FETCH_ADD_TWEET)
+
+export const fetchDeleteTweetAction = createAction<string, TweetsTypeEnum.FETCH_DELETE_TWEET>(
+    TweetsTypeEnum.FETCH_DELETE_TWEET
+)
+
+export default tweet.reducer
+export const {
+    setTweets,
+    setStatusLoadingTweets,
+    addTweet,
+    setStatusLoadingOneTweet,
+    deleteTweet,
+    setStatusDeleteOneTweet,
+} = tweet.actions

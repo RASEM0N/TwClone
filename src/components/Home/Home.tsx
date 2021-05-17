@@ -6,7 +6,7 @@ import { DispatchType } from '../../store/store'
 import InfoMenu from './InfoMenu/InfoMenu'
 import SideMenu from './SideMenu/SideMenu'
 import TweetMenu from './TweetMenu/TweetMenu'
-import { fetchTweetsAction } from '../../store/tweets/tweets-action'
+import { fetchTweetsAction } from '../../store/tweets/tweets-reducer'
 
 const useStyles = makeStyles((theme) => ({
     container: {
