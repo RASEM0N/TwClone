@@ -1,26 +1,20 @@
 import React from 'react'
 import {
-    Avatar,
     Divider,
-    IconButton,
     List,
     ListItem,
-    ListItemAvatar,
-    ListItemText,
     makeStyles,
     Paper,
     Typography,
 } from '@material-ui/core'
-import ImageIcon from '@material-ui/icons/Image'
-import PersonAddIcon from '@material-ui/icons/PersonAdd'
 import Spinner from '../../../Common/Spinner'
 import { DispatchType } from '../../../../store/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchUsersAction } from '../../../../store/otherUsers/otherUsers-action'
 import { getUsers, getUsersStatus } from '../../../../store/otherUsers/otherUsers-selector'
 import { LoadingStateEnum } from '../../../../store/types'
 import InfoMenuUserItem from './InfoMenuUserItem'
 import { getUser } from '../../../../store/user/user-selector'
+import { fetchUsersAction } from "../../../../store/otherUsers/otherUsers-reducer";
 
 const useStyles = makeStyles((theme) => ({
     root: {

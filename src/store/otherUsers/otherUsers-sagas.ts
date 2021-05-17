@@ -1,42 +1,37 @@
 import { all, call, delay, put, takeLatest } from 'redux-saga/effects'
 
-import { LoadingFormStateEnum, LoadingStateEnum, TweetType, UserPublicType } from '../types'
+import { LoadingStateEnum, UserPublicType } from '../types'
 import { IFetchUserById, UserTypeEnum } from './otherUsers-types'
-import {
-    setUserByIdAction,
-    setUsersAction,
-    statusLoadingUserByIdAction,
-    statusLoadingUsersAction
-} from "./otherUsers-action";
+
 import { apiUsers } from '../../services/api/APIUsers'
 import { getAllUserResponseUserType, getUserByIdResponseUserType } from '../../services/api/types'
+import { setStatusUserById, setStatusUsers, setUserById, setUsers } from './otherUsers-reducer'
 
-// --- GET ALL  ---
+// ------ ------ ------ ------ ------
 const fetchUsersRequest = function* () {
-    yield put(statusLoadingUsersAction(LoadingStateEnum.LOADING))
+    yield put(setStatusUsers(LoadingStateEnum.LOADING))
     try {
         yield delay(1000)
         const response: getAllUserResponseUserType = yield call(apiUsers.getAll)
         const users = response.data as UserPublicType[]
-        yield put(setUsersAction(users))
+        yield put(setUsers(users))
     } catch (error) {
-        yield put(statusLoadingUsersAction(LoadingStateEnum.ERROR))
+        yield put(setStatusUsers(LoadingStateEnum.ERROR))
     }
 }
 const watchFetchUsers = function* () {
     yield takeLatest(UserTypeEnum.FETCH_USERS, fetchUsersRequest)
 }
 
-// --- GET BY ID ---
+// ------ ------ ------ ------ ------
 const fetchUserByIdRequest = function* ({ payload }: IFetchUserById) {
-    yield put(statusLoadingUserByIdAction(LoadingStateEnum.LOADING))
+    yield put(setStatusUserById(LoadingStateEnum.LOADING))
     try {
-        console.log(payload);
         const response: getUserByIdResponseUserType = yield call(apiUsers.getById, payload)
         const user = response.data as UserPublicType
-        yield put(setUserByIdAction(user))
+        yield put(setUserById(user))
     } catch (e) {
-        yield put(statusLoadingUserByIdAction(LoadingStateEnum.ERROR))
+        yield put(setStatusUserById(LoadingStateEnum.ERROR))
     }
 }
 const watchFetchUserById = function* () {

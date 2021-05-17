@@ -1,8 +1,7 @@
-import produce, { Draft } from 'immer'
-import { ActionType, InitialStateType, UserTypeEnum } from './otherUsers-types'
-import { LoadingStateEnum } from '../types'
+import { InitialStateType, UserTypeEnum } from './otherUsers-types'
+import { LoadingStateEnum, UserPublicType } from '../types'
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-// --- INITIAL STATE ---
 const initialState: InitialStateType = {
     items: [],
     loading: LoadingStateEnum.NEVER,
@@ -10,31 +9,38 @@ const initialState: InitialStateType = {
     loadingItem: LoadingStateEnum.NEVER,
 }
 
-// --- REDUCER ---
-const otherUsersReducer = produce((draft: Draft<InitialStateType>, action: ActionType) => {
-    switch (action.type) {
-        case UserTypeEnum.SET_USERS: {
-            draft.items = action.payload
-            draft.loading = LoadingStateEnum.LOADED
-            break
-        }
-        case UserTypeEnum.STATUS_LOADING_USERS: {
-            draft.items = []
-            draft.loading = action.payload
-            break
-        }
+const otherUsers = createSlice({
+    name: 'otherUsers',
+    initialState: initialState,
+    reducers: {
+        // ------ ------ ------ ------ ------
+        setUsers: (state, action: PayloadAction<UserPublicType[]>) => {
+            state.items = action.payload
+            state.loading = LoadingStateEnum.LOADED
+        },
+        setStatusUsers: (state, action: PayloadAction<LoadingStateEnum>) => {
+            state.items = []
+            state.loading = action.payload
+        },
+        // ------ ------ ------ ------ ------
+        setUserById: (state, action: PayloadAction<UserPublicType>) => {
+            state.item = action.payload
+            state.loadingItem = LoadingStateEnum.LOADED
+        },
+        setStatusUserById: (state, action: PayloadAction<LoadingStateEnum>) => {
+            state.item = null
+            state.loadingItem = action.payload
+        },
+    },
+})
 
-        case UserTypeEnum.SET_USER_BY_ID: {
-            draft.item = action.payload
-            draft.loadingItem = LoadingStateEnum.LOADED
-            break
-        }
+export const fetchUsersAction = createAction<void, UserTypeEnum.FETCH_USERS>(
+    UserTypeEnum.FETCH_USERS
+)
 
-        case UserTypeEnum.STATUS_LOADING_USER_BY_ID: {
-            draft.item = null
-            draft.loadingItem = action.payload
-        }
-    }
-}, initialState)
+export const fetchUserByIdAction = createAction<string, UserTypeEnum.FETCH_USER_BY_ID>(
+    UserTypeEnum.FETCH_USER_BY_ID
+)
 
-export default otherUsersReducer
+export default otherUsers.reducer
+export const { setUsers, setStatusUsers, setStatusUserById, setUserById } = otherUsers.actions
