@@ -1,26 +1,33 @@
-import produce, { Draft } from 'immer'
-import { ActionType, InitialStateType, TagsActionEnum } from './tags-types'
-import { LoadingStateEnum } from '../types'
+import { InitialStateType, TagsActionEnum } from './tags-types'
+import { LoadingStateEnum, TagType } from '../types'
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-// --- INITIAL STATE ---
+// ------ ------ ------ ------ ------
 const initialState: InitialStateType = {
     items: [],
     loading: LoadingStateEnum.NEVER,
 }
 
-// --- REDUCER ---
-const tagsReducer = produce((draft: Draft<InitialStateType>, action: ActionType) => {
-    switch (action.type) {
-        case TagsActionEnum.SET_TAGS: {
-            draft.items = action.payload
-            draft.loading = LoadingStateEnum.LOADED
-            break
-        }
-        case TagsActionEnum.SET_LOADING_STATE: {
-            draft.items = []
-            draft.loading = action.payload
-            break
-        }
-    }
-}, initialState)
-export default tagsReducer
+// ------ ------ ------ ------ ------
+const tags = createSlice({
+    name: 'tags',
+    initialState: initialState,
+    reducers: {
+        setTags: (state, action: PayloadAction<TagType[]>) => {
+            state.items = action.payload
+            state.loading = LoadingStateEnum.LOADED
+        },
+        setStatusLoadingTags: (state, action: PayloadAction<LoadingStateEnum>) => {
+            state.items = []
+            state.loading = action.payload
+        },
+    },
+})
+
+// ------ ------ ------ ------ ------
+export const fetchTagsAction = createAction<void, TagsActionEnum.FETCH_TAGS>(
+    TagsActionEnum.FETCH_TAGS
+)
+
+export default tags.reducer
+export const { setTags, setStatusLoadingTags } = tags.actions

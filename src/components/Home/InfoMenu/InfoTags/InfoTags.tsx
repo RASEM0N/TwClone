@@ -1,10 +1,11 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Typography, List, ListItem, Paper, Divider, makeStyles } from '@material-ui/core'
 import InfoTagItem from './InfoTagItem'
 import { getLoadingStateTags, getTagsItems } from '../../../../store/tags/tags-selector'
 import { LoadingStateEnum } from '../../../../store/types'
 import Spinner from '../../../Common/Spinner'
+import { DispatchType } from '../../../../store/store'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,6 +40,11 @@ const InfoTags: React.FC = () => {
     const classes = useStyles()
     const tags = useSelector(getTagsItems)
     const loading = useSelector(getLoadingStateTags)
+
+    // const dispatch = useDispatch<DispatchType>()
+    // useEffect(() => {
+    //     dispatch(fetchTagsAction())
+    // }, [dispatch])
 
     return (
         <Paper className={classes.root} variant="outlined">

@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import SearchIcon from '@material-ui/icons/Search'
-import { useDispatch } from 'react-redux'
 import { makeStyles, Paper, InputBase, IconButton } from '@material-ui/core'
-import { DispatchType } from '../../../store/store'
 import InfoTags from './InfoTags/InfoTags'
 import InfoMenuUser from './InfoMenuUser/InfoMenuUser'
-import { fetchTagsAction } from '../../../store/tags/tags-action'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,11 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const InfoMenu = () => {
     const classes = useStyles()
-    const dispatch = useDispatch<DispatchType>()
 
-    // useEffect(() => {
-    //     dispatch(fetchTagsAction())
-    // }, [dispatch])
     return (
         <>
             {/*search*/}
@@ -46,7 +39,7 @@ const InfoMenu = () => {
             </Paper>
 
             {/*list news*/}
-            <InfoTags/>
+            <InfoTags />
 
             {/*Users*/}
             <InfoMenuUser />
