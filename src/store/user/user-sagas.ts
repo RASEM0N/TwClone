@@ -48,6 +48,7 @@ const watchBackFetchUser = function* () {
     yield takeLatest(UserTypeEnum.BACK_FETCH_USER, backFetchUserRequest)
 }
 
+// ------ ------ ------ ------ ------
 export const UserSaga = function* () {
     yield all([watchFetchUser(), watchBackFetchUser()])
 }

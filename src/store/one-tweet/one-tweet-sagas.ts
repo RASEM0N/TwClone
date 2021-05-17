@@ -5,7 +5,7 @@ import { LoadingStateEnum, TweetType } from '../types'
 import { OneTweetResponseType } from '../../services/api/types'
 import { setStatusTweet, setTweet } from './one-tweet-reducer'
 
-// --- БЕРЕМ ТВИТ ПО ID ---
+// ------ ------ ------ ------ ------
 const fetchTweetById = function* ({ payload }: IFetchTweetAction) {
     yield put(setStatusTweet(LoadingStateEnum.LOADING))
     yield delay(500)
@@ -21,6 +21,7 @@ const watchFetchTagById = function* () {
     yield takeLatest(TweetActionEnum.FETCH_TWEET, fetchTweetById)
 }
 
+// ------ ------ ------ ------ ------
 export const TweetSaga = function* () {
     yield all([watchFetchTagById()])
 }

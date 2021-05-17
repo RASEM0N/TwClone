@@ -2,6 +2,7 @@ import { InitialStateType, UserTypeEnum } from './otherUsers-types'
 import { LoadingStateEnum, UserPublicType } from '../types'
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+// ------ ------ ------ ------ ------
 const initialState: InitialStateType = {
     items: [],
     loading: LoadingStateEnum.NEVER,
@@ -9,6 +10,7 @@ const initialState: InitialStateType = {
     loadingItem: LoadingStateEnum.NEVER,
 }
 
+// ------ ------ ------ ------ ------
 const otherUsers = createSlice({
     name: 'otherUsers',
     initialState: initialState,
@@ -34,10 +36,10 @@ const otherUsers = createSlice({
     },
 })
 
+// ------ ------ ------ ------ ------
 export const fetchUsersAction = createAction<void, UserTypeEnum.FETCH_USERS>(
     UserTypeEnum.FETCH_USERS
 )
-
 export const fetchUserByIdAction = createAction<string, UserTypeEnum.FETCH_USER_BY_ID>(
     UserTypeEnum.FETCH_USER_BY_ID
 )

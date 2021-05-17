@@ -2,12 +2,13 @@ import { LoadingStateEnum, TweetType } from '../types'
 import { InitialStateType, TweetActionEnum } from './one-tweet-types'
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-// --- INITIAL STATE ---
+// ------ ------ ------ ------ ------
 export const initialState: InitialStateType = {
     item: null,
     loading: LoadingStateEnum.NEVER,
 }
 
+// ------ ------ ------ ------ ------
 const tweet = createSlice({
     name: 'one_tweet',
     initialState: initialState,
@@ -23,6 +24,7 @@ const tweet = createSlice({
     },
 })
 
+// ------ ------ ------ ------ ------
 export const fetchTweetAction = createAction<string, TweetActionEnum.FETCH_TWEET>(
     TweetActionEnum.FETCH_TWEET
 )

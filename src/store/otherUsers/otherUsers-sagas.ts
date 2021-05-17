@@ -38,6 +38,7 @@ const watchFetchUserById = function* () {
     yield takeLatest(UserTypeEnum.FETCH_USER_BY_ID, fetchUserByIdRequest)
 }
 
+// ------ ------ ------ ------ ------
 export const OtherUsersSaga = function* () {
     yield all([watchFetchUsers(), watchFetchUserById()])
 }

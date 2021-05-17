@@ -3,13 +3,14 @@ import { InitialStateType, UserTypeEnum } from './user-types'
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LoginRequestDataType } from '../../services/api/types'
 
-// --- INITIAL STATE ---
+// ------ ------ ------ ------ ------
 const initialState: InitialStateType = {
     item: null,
     loading: LoadingStateEnum.NEVER,
     token: null,
 }
 
+// ------ ------ ------ ------ ------
 const user = createSlice({
     name: 'user',
     initialState: initialState,
@@ -33,6 +34,7 @@ const user = createSlice({
     },
 })
 
+// ------ ------ ------ ------ ------
 export const fetchUserAction = createAction<LoginRequestDataType, UserTypeEnum>(
     UserTypeEnum.FETCH_USER
 )

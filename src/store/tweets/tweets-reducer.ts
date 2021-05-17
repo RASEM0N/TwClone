@@ -3,7 +3,7 @@ import { InitialStateType, TweetsTypeEnum } from './tweets-types'
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { TweetRequestDataType } from '../../services/api/types'
 
-// --- INITIAL STATE ---
+// ------ ------ ------ ------ ------
 const initialState: InitialStateType = {
     items: [],
     loading: LoadingStateEnum.NEVER,
@@ -12,10 +12,7 @@ const initialState: InitialStateType = {
     idToDelete: null,
 }
 
-//         case TweetsTypeEnum.FETCH_ADD_TWEET: {
-//             state.loadingForm = LoadingFormStateEnum.LOADING
-//             break
-
+// ------ ------ ------ ------ ------
 const tweet = createSlice({
     name: 'tweet',
     initialState: initialState,
@@ -61,6 +58,7 @@ const tweet = createSlice({
     },
 })
 
+// ------ ------ ------ ------ ------
 export const fetchTweetsAction = createAction<void, TweetsTypeEnum.FETCH_TWEETS>(
     TweetsTypeEnum.FETCH_TWEETS
 )

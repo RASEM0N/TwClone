@@ -7,18 +7,15 @@ export interface InitialStateType
     token: string | null
 }
 
-// --- ENUM ---
+// ------ ------ ------ ------ ------
 export enum UserTypeEnum {
     FETCH_USER = `user/FETCH_GET_USER`,
     BACK_FETCH_USER = `user/BACK_FETCH_USER`,
 }
 
-// --- ACTION ---
+// ------ ------ ------ ------ ------
 export interface IFetchUser extends Action<UserTypeEnum> {
     type: UserTypeEnum.FETCH_USER
     payload: LoginRequestDataType
 }
 
-export interface IBackFetchUser extends Action<UserTypeEnum> {
-    type: UserTypeEnum.BACK_FETCH_USER
-}
