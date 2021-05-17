@@ -6,12 +6,12 @@ import Login from './components/Authorization/Login'
 import Register from './components/Authorization/Register'
 import AuthVerify from './components/Authorization/AuthVerify'
 import AuthRecovery from './components/Authorization/AuthRecovery'
-import { backFetchUserAction } from './store/user/user-action'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUser, getUserStatus } from './store/user/user-selector'
 import { DispatchType } from './store/store'
 import { LoadingStateEnum } from './store/types'
 import Spinner from './components/Common/Spinner'
+import { backFetchUserAction } from './store/user/user-reducer'
 
 const App = () => {
     const dispatch = useDispatch<DispatchType>()

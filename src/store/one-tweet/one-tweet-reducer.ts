@@ -8,7 +8,7 @@ export const initialState: InitialStateType = {
     loading: LoadingStateEnum.NEVER,
 }
 
-const tweetReducer = createSlice({
+const tweet = createSlice({
     name: 'one_tweet',
     initialState: initialState,
     reducers: {
@@ -27,5 +27,5 @@ export const fetchTweetAction = createAction<string, TweetActionEnum.FETCH_TWEET
     TweetActionEnum.FETCH_TWEET
 )
 
-export default tweetReducer.reducer
-export const { setTweet, setStatusTweet } = tweetReducer.actions
+export default tweet.reducer
+export const { setTweet, setStatusTweet } = tweet.actions

@@ -7,9 +7,8 @@ import { useFormik } from 'formik'
 import loginValidationSchema from '../../validations/login-validation'
 import { LoginRequestDataType } from '../../services/api/types'
 import { DispatchType } from '../../store/store'
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUserAction } from '../../store/user/user-action'
-import { getUser } from "../../store/user/user-selector";
+import { useDispatch } from 'react-redux'
+import { fetchUserAction } from '../../store/user/user-reducer'
 
 const useStyles = makeStyles((theme) => ({
     paper: {

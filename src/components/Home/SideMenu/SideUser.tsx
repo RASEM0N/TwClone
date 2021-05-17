@@ -14,10 +14,10 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import MeetingRoomOutlinedIcon from '@material-ui/icons/MeetingRoomOutlined'
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from '../../../store/user/user-selector'
-import { DispatchType } from "../../../store/store";
-import { logoutAction } from "../../../store/user/user-action";
+import { DispatchType } from '../../../store/store'
+import { logout as logoutAction } from '../../../store/user/user-reducer'
 
 const useStyles = makeStyles((theme) => ({
     listItem: {
