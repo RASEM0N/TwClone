@@ -1,14 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import TwitterIcon from '@material-ui/icons/Twitter'
-import { Button, CssBaseline, TextField, Grid, Container, Typography } from '@material-ui/core'
+import { Button, Container, CssBaseline, Grid, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useFormik } from 'formik'
 import loginValidationSchema from '../../validations/login-validation'
 import { LoginRequestDataType } from '../../services/api/types'
 import { DispatchType } from '../../store/store'
-import { useDispatch } from 'react-redux'
-import { fetchUserAction } from '../../store/user/user-reducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUserAction, setUserAuthorizeError } from '../../store/user/user-reducer'
+import { getUserAuthorizeError, getUserStatus } from '../../store/user/user-selector'
+import { LoadingStateEnum } from '../../store/types'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     form: {
+        position: 'relative',
         width: '100%',
         marginTop: theme.spacing(3),
     },
@@ -38,11 +41,20 @@ const useStyles = makeStyles((theme) => ({
     link: {
         color: 'rgb(29, 161, 242)',
     },
+    error: {
+        bottom: -100,
+        right: 0,
+        left: 0,
+        textAlign: 'center',
+        position: 'absolute',
+    },
 }))
 
 const Login = () => {
     const classes = useStyles()
     const dispatch = useDispatch<DispatchType>()
+    const status = useSelector(getUserStatus)
+    const error = useSelector(getUserAuthorizeError)
 
     const formik = useFormik<LoginRequestDataType>({
         initialValues: {
@@ -111,6 +123,11 @@ const Login = () => {
                     >
                         Войти
                     </Button>
+                    {status === LoadingStateEnum.ERROR && error && (
+                        <Typography color="error" className={classes.error}>
+                            {error}
+                        </Typography>
+                    )}
                     <Grid container>
                         <Grid item xs>
                             <Link to="/auth/recovery" className={classes.link}>

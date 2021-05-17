@@ -6,7 +6,7 @@ import TweetItemContainer from './TweetItemContainer'
 import { useSelector } from 'react-redux'
 import { StateType } from '../../../../store/store'
 import { makeStyles, Typography } from '@material-ui/core'
-import { getLoadingStateTweets, getTweetsItems } from '../../../../store/tweets/tweets-selector'
+import { getLoadingStateTweets, getTweetsItemsRS } from '../../../../store/tweets/tweets-selector'
 import { LoadingStateEnum } from '../../../../store/types'
 import Spinner from '../../../Common/Spinner'
 import UserProfile from './UserProfile/UserProfile'
@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TweetContent = () => {
     const classes = useStyles()
-    const tweets = useSelector(getTweetsItems)
+    const tweets = useSelector(getTweetsItemsRS)
     const loading = useSelector<StateType, LoadingStateEnum>(getLoadingStateTweets)
 
     return (
@@ -107,7 +107,9 @@ const TweetContent = () => {
                 <Route path="/home" exact>
                     {loading === LoadingStateEnum.LOADED ? (
                         tweets.map((tweet, idx) => (
-                            <TweetContentItem key={tweet._id} classes={classes} {...tweet} />
+                            <div key={tweet._id}>
+                                <TweetContentItem classes={classes} {...tweet} />
+                            </div>
                         ))
                     ) : (
                         <div className={classes.spinnerShell}>

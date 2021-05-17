@@ -7,6 +7,7 @@ import { InitialStateType } from './user-types'
 export const getUserState: Selector<StateType, InitialStateType> = (state) => state.user
 export const getUser: Selector<StateType, UserPrivateType | null> = (state) =>
     getUserState(state).item
+export const getUserAuthorizeError: Selector<StateType, any> = (state) => getUserState(state).error
 
 // ------ ------ ------ ------ ------
 export const getUserStatus: Selector<StateType, LoadingStateEnum> = (state) =>

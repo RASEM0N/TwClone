@@ -11,6 +11,7 @@ export interface InitialStateType extends InitialStateForManyType<TweetType[], L
     loadingForm: LoadingFormStateEnum
     loadingDelete: LoadingStateEnum
     idToDelete: null | string
+    filter: string
 }
 
 // ------ ------ ------ ------ ------

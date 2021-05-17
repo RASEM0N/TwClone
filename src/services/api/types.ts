@@ -17,6 +17,11 @@ export interface LoginRequestDataType {
     password: string
 }
 
+export interface RegisterRequestDataType extends LoginRequestDataType{
+    email: string
+    fullname: string
+}
+
 export interface AuthorizationResponseUserType extends ResponseType<UserPrivateType> {}
 
 // --- ----

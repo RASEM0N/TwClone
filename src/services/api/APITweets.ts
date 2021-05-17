@@ -19,7 +19,6 @@ class APITweets {
         if (tweet.photoUrl) {
             data.image = tweet.photoUrl
         }
-        console.log(data)
         const response = await axios.post(`/tweets`, data)
         return response.data
     }

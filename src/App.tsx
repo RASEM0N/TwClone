@@ -25,7 +25,7 @@ const App = () => {
     }, [dispatch])
 
     React.useEffect(() => {
-        if (loading === LoadingStateEnum.LOADING) return
+        if (loading === LoadingStateEnum.LOADING || loading === LoadingStateEnum.ERROR) return
 
         if (auth) {
             history.push('/home')

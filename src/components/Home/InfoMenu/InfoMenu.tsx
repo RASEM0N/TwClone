@@ -3,6 +3,10 @@ import SearchIcon from '@material-ui/icons/Search'
 import { makeStyles, Paper, InputBase, IconButton } from '@material-ui/core'
 import InfoTags from './InfoTags/InfoTags'
 import InfoMenuUser from './InfoMenuUser/InfoMenuUser'
+import { useDispatch, useSelector } from 'react-redux'
+import { getFilterTweets } from '../../../store/tweets/tweets-selector'
+import { DispatchType } from '../../../store/store'
+import { setFilter } from '../../../store/tweets/tweets-reducer'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
 
 const InfoMenu = () => {
     const classes = useStyles()
+    const search = useSelector(getFilterTweets)
+    const dispatch = useDispatch<DispatchType>()
 
     return (
         <>
@@ -35,7 +41,14 @@ const InfoMenu = () => {
                 <IconButton type="submit" className={classes.iconButton} aria-label="search">
                     <SearchIcon />
                 </IconButton>
-                <InputBase className={classes.input} placeholder="Поиск по Твиттеру" />
+                <InputBase
+                    className={classes.input}
+                    placeholder="Поиск по Твиттеру"
+                    value={search}
+                    onChange={(e) => {
+                        dispatch(setFilter(e.target.value))
+                    }}
+                />
             </Paper>
 
             {/*list news*/}

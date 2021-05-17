@@ -1,5 +1,5 @@
 import axios from '../../core/api'
-import { AuthorizationResponseUserType, LoginRequestDataType } from './types'
+import { AuthorizationResponseUserType, LoginRequestDataType, RegisterRequestDataType } from "./types";
 
 class APIAuthorization {
     async getMe(): Promise<AuthorizationResponseUserType> {
@@ -9,6 +9,11 @@ class APIAuthorization {
 
     async login(data: LoginRequestDataType): Promise<AuthorizationResponseUserType> {
         const response = await axios.post(`/auth/login`, data)
+        return response.data
+    }
+
+    async register(data: RegisterRequestDataType): Promise<AuthorizationResponseUserType> {
+        const response = await axios.post(`/auth/register`, data)
         return response.data
     }
 }

@@ -10,6 +10,7 @@ const initialState: InitialStateType = {
     loadingForm: LoadingFormStateEnum.NEVER,
     loadingDelete: LoadingStateEnum.LOADED,
     idToDelete: null,
+    filter: '',
 }
 
 // ------ ------ ------ ------ ------
@@ -21,6 +22,9 @@ const tweet = createSlice({
         setTweets: (state, action: PayloadAction<TweetType[]>) => {
             state.items = action.payload
             state.loading = LoadingStateEnum.LOADED
+        },
+        setFilter: (state, action: PayloadAction<string>) => {
+            state.filter = action.payload
         },
         setStatusLoadingTweets: (state, action: PayloadAction<LoadingStateEnum>) => {
             state.items = []
@@ -76,6 +80,7 @@ export const {
     setTweets,
     setStatusLoadingTweets,
     addTweet,
+    setFilter,
     setStatusLoadingOneTweet,
     deleteTweet,
     setStatusDeleteOneTweet,
