@@ -16,7 +16,7 @@ const theme = createMuiTheme({
     },
     palette: {
         primary: {
-            main: 'rgb(29, 161, 242)',
+            main: '#e0245e',
             dark: 'rgb(26, 145, 218)',
             contrastText: '#fff',
         },
@@ -48,7 +48,7 @@ const theme = createMuiTheme({
                 paddingRight: 20,
             },
             outlinedPrimary: {
-                borderColor: 'rgb(29, 161, 243)',
+                borderColor: '#e0245e',
             },
         },
         MuiFilledInput: {
