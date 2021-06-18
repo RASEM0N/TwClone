@@ -6,7 +6,7 @@ import { AuthorizationResponseUserType } from '../../services/api/types'
 import { setStatusLoadingUser, setUser, setUserAuthorizeError } from './user-reducer'
 
 // ------ ------ ------ ------ ------
-const fetchUserRequest = function* ({ payload }: IFetchUser) {
+export const fetchUserRequest = function* ({ payload }: IFetchUser) {
     yield put(setStatusLoadingUser(LoadingStateEnum.LOADING))
     try {
         const response: AuthorizationResponseUserType = yield call(apiAuth.login, payload)
@@ -19,7 +19,7 @@ const fetchUserRequest = function* ({ payload }: IFetchUser) {
         )
     } catch (error) {
         window.localStorage.removeItem('token')
-        yield put(setUserAuthorizeError(error.response.data))
+        yield put(setUserAuthorizeError(error.response?.data))
         yield put(setStatusLoadingUser(LoadingStateEnum.ERROR))
     }
 }
@@ -28,7 +28,7 @@ const watchFetchUser = function* () {
 }
 
 // ------ ------ ------ ------ ------
-const backFetchUserRequest = function* () {
+export const backFetchUserRequest = function* () {
     yield put(setStatusLoadingUser(LoadingStateEnum.LOADING))
     try {
         yield delay(2000)
