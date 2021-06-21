@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrimaryPage just render 1`] = `
+"<div className=\\"makeStyles-wrapper-1\\">
+  <div className=\\"makeStyles-infoSide-2\\">
+    <Memo(ForwardRef(TwitterIcon)) className=\\"makeStyles-infoIconTwitterBcg-4\\" color=\\"primary\\" />
+    <ul>
+      <li>
+        <WithStyles(ForwardRef(Typography)) variant=\\"h5\\">
+           
+          <Memo(ForwardRef(SearchIcon)) className=\\"makeStyles-infoSideIcon-3\\" />
+          Читайте о том, что вам интересно
+        </WithStyles(ForwardRef(Typography))>
+      </li>
+      <li>
+        <WithStyles(ForwardRef(Typography)) variant=\\"h5\\">
+          <Memo(ForwardRef(PeopleOutlineIcon)) className=\\"makeStyles-infoSideIcon-3\\" />
+          Узнайте о, чем говорят в мире
+           
+        </WithStyles(ForwardRef(Typography))>
+      </li>
+      <li>
+        <WithStyles(ForwardRef(Typography)) variant=\\"h5\\">
+          <Memo(ForwardRef(ModeCommentOutlinedIcon)) className=\\"makeStyles-infoSideIcon-3\\" />
+          Присоединяйтесь к общению
+        </WithStyles(ForwardRef(Typography))>
+      </li>
+    </ul>
+  </div>
+  <section className=\\"makeStyles-authSide-5\\">
+    <div className=\\"makeStyles-authSideWrapper-7\\">
+      <Memo(ForwardRef(TwitterIcon)) className=\\"makeStyles-authIconTwitter-6\\" color=\\"primary\\" />
+      <WithStyles(ForwardRef(Typography)) className=\\"makeStyles-authSideTitle-8\\" variant=\\"h4\\">
+        Узнайте, что происходит в мире сейчас
+      </WithStyles(ForwardRef(Typography))>
+      <WithStyles(ForwardRef(Typography))>
+        <b>
+          Присоедийтесь к Твиттеру прямо сейчас!
+        </b>
+      </WithStyles(ForwardRef(Typography))>
+      <WithStyles(ForwardRef(Button)) style={{...}} variant=\\"contained\\" fullWidth={true} color=\\"primary\\" onClick={[Function: toRegister]}>
+        Зарегистрироваться
+      </WithStyles(ForwardRef(Button))>
+      <WithStyles(ForwardRef(Button)) onClick={[Function: toLogin]} variant=\\"outlined\\" fullWidth={true} color=\\"primary\\">
+        Войти
+      </WithStyles(ForwardRef(Button))>
+    </div>
+  </section>
+</div>"
+`;

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrimaryPage just render 1`] = `
+"<div>
+  121312412
+</div>"
+`;
