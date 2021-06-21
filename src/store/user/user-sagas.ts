@@ -50,7 +50,7 @@ const watchBackFetchUser = function* () {
 }
 
 // ------ ------ ------ ------ ------
-const registerUserRequest = function* ({ payload }: IRegisterUser) {
+export const registerUserRequest = function* ({ payload }: IRegisterUser) {
     yield put(setStatusLoadingUser(LoadingStateEnum.LOADING))
     try {
         const response: AuthorizationResponseUserType = yield call(apiAuth.register, payload)
@@ -64,7 +64,7 @@ const registerUserRequest = function* ({ payload }: IRegisterUser) {
     } catch (error) {
         window.localStorage.removeItem('token')
         console.log(error.response)
-        yield put(setUserAuthorizeError(error.response.data.message))
+        yield put(setUserAuthorizeError(error.response?.data?.message))
         yield put(setStatusLoadingUser(LoadingStateEnum.ERROR))
     }
 }

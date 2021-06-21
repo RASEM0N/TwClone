@@ -1,17 +1,22 @@
 // @ts-ignore
-import { backFetchUserRequest, fetchUserRequest } from './user-sagas'
-import { InitialStateType, UserTypeEnum } from './user-types'
-import { call, delay } from 'redux-saga/effects'
+import { backFetchUserRequest, fetchUserRequest, registerUserRequest } from './user-sagas'
+import { InitialStateType, IRegisterUser, UserTypeEnum } from './user-types'
+import { call, delay, put } from 'redux-saga/effects'
 import { apiAuth } from '../../services/api/APIAuthorization'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 
 import userReducer, { setStatusLoadingUser, setUser, setUserAuthorizeError } from './user-reducer'
 import { LoadingStateEnum, UserPrivateType } from '../types'
 import { throwError } from 'redux-saga-test-plan/providers'
-import { AuthorizationResponseUserType, LoginRequestDataType } from '../../services/api/types'
+import {
+    AuthorizationResponseUserType,
+    LoginRequestDataType,
+    RegisterRequestDataType,
+} from '../../services/api/types'
 
 describe('test user saga', () => {
     let payload: LoginRequestDataType
+    let registerPayload: RegisterRequestDataType
     let user: UserPrivateType
     let response: AuthorizationResponseUserType
     let responseToState: { user: UserPrivateType; token: string }
@@ -22,6 +27,13 @@ describe('test user saga', () => {
         payload = {
             password: 'password123',
             username: 'username123',
+        }
+
+        registerPayload = {
+            username: 'username123',
+            fullname: 'fullname123',
+            email: 'fd',
+            password: 'fd',
         }
 
         user = {
@@ -48,8 +60,8 @@ describe('test user saga', () => {
         }
     })
 
-    describe('login', () => {
-        describe('контроллируем (на кнопочку)', () => {
+    describe('authenticated', () => {
+        describe('авторизация', () => {
             it('success руками', () => {
                 const generator = fetchUserRequest({
                     payload: payload,
@@ -127,10 +139,9 @@ describe('test user saga', () => {
             })
         })
 
-        describe('неконтроллируемый (начальный)', () => {
+        describe('начальная авторизация', () => {
             it('success', () => {
                 const saga = testSaga(backFetchUserRequest)
-                const error = new Error()
                 saga.next()
                     .put(setStatusLoadingUser(LoadingStateEnum.LOADING))
                     .next()
@@ -164,6 +175,83 @@ describe('test user saga', () => {
                 expect(gen.next().value).toEqual(call(apiAuth.getMe))
                 //@ts-ignore
                 expect(gen.next(response).value.payload.action.payload).toEqual(responseToState)
+            })
+        })
+
+        describe('регистрация', () => {
+            it('success руками', () => {
+                const action = {
+                    payload: registerPayload,
+                    type: UserTypeEnum.REGISTER_USER,
+                }
+
+                const generator = registerUserRequest(action as IRegisterUser)
+                //@ts-ignore
+                expect(generator.next().value.payload.action).toEqual({
+                    payload: 'LOADING',
+                    type: 'user/setStatusLoadingUser',
+                })
+                expect(generator.next().value).toEqual(call(apiAuth.register, registerPayload))
+                //@ts-ignore
+                expect(generator.next(response).value.payload.action.payload).toEqual(
+                    responseToState
+                )
+            })
+            it('success', () => {
+                const action = {
+                    payload: registerPayload,
+                    type: UserTypeEnum.REGISTER_USER,
+                }
+
+                return expectSaga(registerUserRequest, action as IRegisterUser)
+                    .withReducer(userReducer)
+                    .put(setStatusLoadingUser(LoadingStateEnum.LOADING))
+                    .provide([[call(apiAuth.register, registerPayload), response]])
+                    .put(setUser(responseToState))
+                    .hasFinalState<InitialStateType>({
+                        item: user,
+                        loading: LoadingStateEnum.LOADED,
+                        token: '1234567',
+                        error: null,
+                    })
+                    .run()
+            })
+
+            it('error', () => {
+                const action = {
+                    payload: registerPayload,
+                    type: UserTypeEnum.REGISTER_USER,
+                }
+                const error = new Error()
+                return expectSaga(registerUserRequest, action as IRegisterUser)
+                    .withReducer(userReducer)
+                    .put(setStatusLoadingUser(LoadingStateEnum.LOADING))
+                    .provide([[call(apiAuth.register, registerPayload), throwError(error)]])
+                    .put(setUserAuthorizeError(undefined))
+                    .put(setStatusLoadingUser(LoadingStateEnum.ERROR))
+                    .hasFinalState<InitialStateType>({
+                        item: null,
+                        loading: LoadingStateEnum.ERROR,
+                        token: null,
+                        error: undefined,
+                    })
+                    .run()
+            })
+
+            it('success -', () => {
+                const action: IRegisterUser = {
+                    payload: registerPayload,
+                    type: UserTypeEnum.REGISTER_USER,
+                }
+                const saga = testSaga(registerUserRequest, action)
+
+                saga.next()
+                    .put(setStatusLoadingUser(LoadingStateEnum.LOADING))
+                    .next()
+                    .call(apiAuth.register, registerPayload)
+                    .next(response)
+                    .put(setUser(responseToState))
+                    .finish()
             })
         })
     })
