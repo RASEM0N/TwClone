@@ -22,6 +22,7 @@ const user = createSlice({
             state.loading = LoadingStateEnum.LOADED
         },
         setUserAuthorizeError: (state, action: PayloadAction<any>) => {
+            state.loading = LoadingStateEnum.ERROR
             state.error = action.payload
         },
         setStatusLoadingUser: (state, action: PayloadAction<LoadingStateEnum>) => {
